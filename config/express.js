@@ -7,14 +7,15 @@ var activeModules = require('./modules.js').activeModules;
 module.exports = function(){
 	var app = express();
 	
-	app.use(compress());
-	
+	if (process.env.NODE_ENV == 'production') {
+		app.use(compress());
+	}
+
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({
 		extended: true
 	}));
 	
-	app.set('superSecret', config.secret); 
 	app.set('view engine', 'ejs');
 	app.set('views', './app');
 
