@@ -22,7 +22,7 @@ echo "{
 	\"metaDescription\" : \"\",
 	\"icon\" : \"\",
 	\"slider\" :\"\",
-	\"homeUrl\": \"/"$moduleNamePlural"\",
+	\"url\": \"/"$moduleNamePlural"\",
 	\"models\": [\""$moduleNamePlural"\"]
 }" > app/$moduleNamePlural/config/$moduleNamePlural.locals.json
 
