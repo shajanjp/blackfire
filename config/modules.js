@@ -1,7 +1,7 @@
 var activeModules = [
 {
 	"name": "home",
-	"title": "All Of Food",
+	"title": "BlackFire",
 	"url": "/"
 }
 ];

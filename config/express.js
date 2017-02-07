@@ -1,4 +1,4 @@
-var config = require('./env/development.js');
+var config = require('./env/'+ process.env.NODE_ENV +'.js');
 var express = require('express');
 var compress = require('compression');
 var bodyParser = require('body-parser');
@@ -22,7 +22,6 @@ module.exports = function(){
 	activeModules.forEach(function(module) {
 		require('../app/'+ module.name + '/routes/' + module.name +'.server.route.js')(app);
 	});
-
 
 	app.use(express.static('./app'));
 	return app;

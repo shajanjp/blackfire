@@ -1,4 +1,3 @@
 module.exports = {
-	db : 'mongodb://localhost/alloffood',
-	jwtsecret : 'GuysWhoReallyMakeCode'
+	db : 'mongodb://localhost/devbird'
 }
