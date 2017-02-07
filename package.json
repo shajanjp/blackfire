@@ -1,0 +1,27 @@
+{
+  "name": "BlackFire",
+  "version": "0.0.0",
+  "description": "Easy to use, maintainable MEAN boilerplate.",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "compression": "^1.6.2",
+    "ejs": "^2.3.4",
+    "express": "^4.13.3",
+    "mongoose": "^4.3.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "blackfire",
+    "MEAN",
+    "restaurants",
+    "cook",
+    "recipe"
+  ],
+  "author": "shajanjp@gmail.com",
+  "license": "ISC"
+}

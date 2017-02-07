@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%= home.title %></title>
+	<% include partials/head.ejs %>
+	<% include partials/styles.ejs %>
+	<link rel="stylesheet" href="/home/public/css/home.css">
+</head>
+<body>	
+	<% include partials/header.ejs %>
+	<div class="container">
+		<h1>Welcome to <%= home.title %> Home Page</h1>
+	</div>
+	<% include partials/footer.ejs %>
+	<% include partials/scripts.ejs %>
+</body>
+</html>
