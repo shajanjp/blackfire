@@ -1,3 +1,3 @@
 module.exports = {
-	db : 'mongodb://localhost/blackbird'
+	db : 'mongodb://localhost/probird'
 }
