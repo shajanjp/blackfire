@@ -6,11 +6,14 @@
   "dependencies": {
     "body-parser": "^1.14.2",
     "compression": "^1.6.2",
+    "cookie-parser": "^1.4.3",
     "ejs": "^2.3.4",
     "express": "^4.13.3",
     "mongoose": "^4.3.5"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "morgan": "^1.8.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
