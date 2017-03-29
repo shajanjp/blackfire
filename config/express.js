@@ -18,13 +18,24 @@ module.exports = function(){
 	app.use(bodyParser.urlencoded({
 		extended: true
 	}));
+	app.use(cookieParser());
+
 	
+	// Setting view engine
 	app.set('view engine', 'ejs');
 	app.set('views', './app');
 
+	// Saving module details to local 
 	app.locals = require('./app-config.js').moduleLocals;
+
+	// Loading routes.
 	activeModules.forEach(function(module) {
-		require('../app/'+ module.name + '/routes/' + module.name +'.server.route.js')(app);
+		moduleRoutes = require('../app/' + module.name + '/config/' + module.name + '.locals.json').routes;
+		if(moduleRoutes != undefined){
+			moduleRoutes.forEach(function(routeFile){
+				require('../app/'+ module.name + '/routes/' + routeFile)(app);
+			});
+		}
 	});
 
 	app.use(express.static('./app'));
