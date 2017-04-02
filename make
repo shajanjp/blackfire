@@ -33,7 +33,6 @@ case "$1" in
 	# Controller
 	echo "var "$moduleNameSingular" = require('mongoose').model('"$moduleNameSingular"');
 	var "$moduleNameSingular"Validation = require('../lib/"$moduleNamePlural".validation.js');
-
 		exports.home = function(req, res){
 		res.render('"$moduleNamePlural"/views/home');
 	}
@@ -96,26 +95,27 @@ case "$1" in
 
 	#routes
 	echo "var "$moduleNamePlural"Controller = require('../controllers/"$moduleNamePlural".server.controller.js');
+	var domainRoot = '';
 	module.exports = function(app){
-	app.route('/"$moduleNamePlural"')
+	app.route(domainRoot + '/"$moduleNamePlural"')
 	.get("$moduleNamePlural"Controller.home) // home.ejs
 	.post("$moduleNamePlural"Controller.create);
 	
-	app.route('/"$moduleNamePlural"/list') 
+	app.route(domainRoot + '/"$moduleNamePlural"/list') 
 	.get("$moduleNamePlural"Controller.list);
 
-	app.route('/"$moduleNamePlural"/add')
+	app.route(domainRoot + '/"$moduleNamePlural"/add')
 	.get("$moduleNamePlural"Controller.add); // add.ejs
 
-	app.route('/"$moduleNamePlural"/:"$moduleNameSingular"_id')
+	app.route(domainRoot + '/"$moduleNamePlural"/:"$moduleNameSingular"_id')
 	.get("$moduleNamePlural"Controller.view) // view.ejs
 	.put("$moduleNamePlural"Controller.update)
 	.delete("$moduleNamePlural"Controller.remove);
 
-	app.route('/"$moduleNamePlural"/:"$moduleNameSingular"_id/edit')
+	app.route(domainRoot + '/"$moduleNamePlural"/:"$moduleNameSingular"_id/edit')
 	.get("$moduleNamePlural"Controller.edit); // edit.ejs
 
-	app.route('/"$moduleNamePlural"/:"$moduleNameSingular"_id/delete')
+	app.route(domainRoot + '/"$moduleNamePlural"/:"$moduleNameSingular"_id/delete')
 	.get("$moduleNamePlural"Controller.delete); // delete.ejs
 
 	app.param('"$moduleNameSingular"_id', "$moduleNamePlural"Controller."$moduleNameSingular"ById);
