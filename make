@@ -147,6 +147,9 @@ case "$1" in
 	echo "Created module $moduleNamePlural";
 	;;
 
+	help)
+		echo "make module car cars Cars \n"
+	;;
 *)
 	echo "Creating Module !";
 	exit
