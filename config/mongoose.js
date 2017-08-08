@@ -4,7 +4,9 @@ var activeModules = require('./modules.js').activeModules;
 var moduleModels;
 
 module.exports = function(){
-	var db = mongoose.connect(config.db);
+	var db = mongoose.connect(config.db,  {
+		useMongoClient: true
+	});
 	console.log("registering mongoDB schemas...");
 	activeModules.forEach(function(module) {
 		moduleModels = require('../app/' + module.name + '/config/' + module.name + '.locals.json').models;
