@@ -4,12 +4,12 @@
   "description": "Easy to use, maintainable MEAN boilerplate.",
   "main": "server.js",
   "dependencies": {
-    "body-parser": "^1.14.2",
-    "compression": "^1.6.2",
+    "body-parser": "^1.7.2",
+    "compression": "^1.7.0",
     "cookie-parser": "^1.4.3",
-    "ejs": "^2.3.4",
-    "express": "^4.13.3",
-    "mongoose": "^4.3.5"
+    "ejs": "^2.5.7",
+    "express": "^4.15.4",
+    "mongoose": "^4.11.6"
   },
   "devDependencies": {
     "morgan": "^1.8.1"
