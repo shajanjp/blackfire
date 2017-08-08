@@ -26,7 +26,7 @@ case "$1" in
 	\"icon\" : \"\",
 	\"slider\" :\"\",
 	\"url\": \"/"$moduleNamePlural"\",
-	\"routes\": [\""$moduleNamePlural".server.route.js\"],
+	\"routes\": [\""$moduleNamePlural".server.api.route.js\",\""$moduleNamePlural".server.ui.route.js\"],
 	\"models\": [\""$moduleNamePlural".server.model.js\"]
 	}" > app/$moduleNamePlural/config/$moduleNamePlural.locals.json
 
