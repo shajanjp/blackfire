@@ -15,3 +15,10 @@ or
 ```
 npm install
 ```
+
+## Usage
+```
+./make module car cars Cars
+```
+
+```
