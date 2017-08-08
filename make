@@ -148,7 +148,7 @@ case "$1" in
 	;;
 
 	help)
-		echo "make module car cars Cars \n"
+		echo "make module car cars Cars";
 	;;
 *)
 	echo "Creating Module !";
