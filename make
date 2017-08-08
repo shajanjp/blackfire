@@ -93,7 +93,7 @@ case "$1" in
 	mkdir app/$moduleNamePlural/public/uploads
 	touch app/$moduleNamePlural/public/css/$moduleNamePlural.css
 
-	#routes
+	#UI routes
 	echo "var "$moduleNamePlural"Controller = require('../controllers/"$moduleNamePlural".server.controller.js');
 	var domainRoot = '';
 	module.exports = function(app){
@@ -119,7 +119,18 @@ case "$1" in
 	.get("$moduleNamePlural"Controller.delete); // delete.ejs
 
 	app.param('"$moduleNameSingular"_id', "$moduleNamePlural"Controller."$moduleNameSingular"ById);
-	}" > app/$moduleNamePlural/routes/$moduleNamePlural.server.route.js
+	}" > app/$moduleNamePlural/routes/$moduleNamePlural.server.ui.route.js
+
+	#API routes
+	echo "var "$moduleNamePlural"Controller = require('../controllers/"$moduleNamePlural".server.controller.js');
+	var domainRoot = '/api';
+	module.exports = function(app){
+	app.route(domainRoot + '/"$moduleNamePlural"')
+	.get("$moduleNamePlural"Controller.home) // home.ejs
+	.post("$moduleNamePlural"Controller.create);
+
+	app.param('"$moduleNameSingular"_id', "$moduleNamePlural"Controller."$moduleNameSingular"ById);
+	}" > app/$moduleNamePlural/routes/$moduleNamePlural.server.api.route.js
 
 	#views
 	echo "<!DOCTYPE html>
@@ -138,6 +149,7 @@ case "$1" in
 	<% include ../../home/views/partials/scripts.ejs %>	
 	</body>
 	</html>" > app/$moduleNamePlural/views/add.ejs;
+
 	cp app/$moduleNamePlural/views/add.ejs app/$moduleNamePlural/views/home.ejs
 	cp app/$moduleNamePlural/views/add.ejs app/$moduleNamePlural/views/delete.ejs
 	cp app/$moduleNamePlural/views/add.ejs app/$moduleNamePlural/views/edit.ejs
