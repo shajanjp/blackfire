@@ -29,11 +29,13 @@ module.exports = function(){
 	app.locals = require('./app-config.js').moduleLocals;
 
 	// Loading routes.
+	console.log("loading routes...");
 	activeModules.forEach(function(module) {
 		moduleRoutes = require('../app/' + module.name + '/config/' + module.name + '.locals.json').routes;
 		if(moduleRoutes != undefined){
 			moduleRoutes.forEach(function(routeFile){
 				require('../app/'+ module.name + '/routes/' + routeFile)(app);
+				console.log("loading " + routeFile);
 			});
 		}
 	});
