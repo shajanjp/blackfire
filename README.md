@@ -21,4 +21,11 @@ npm install
 ./make module car cars Cars
 ```
 
+## Execution
+```
+yarn start
+```
+or
+```
+npm start
 ```
