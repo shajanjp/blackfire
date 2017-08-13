@@ -9,7 +9,8 @@
     "cookie-parser": "^1.4.3",
     "ejs": "^2.5.7",
     "express": "^4.15.4",
-    "mongoose": "^4.11.6"
+    "mongoose": "^4.11.6",
+    "multer": "*"
   },
   "devDependencies": {
     "morgan": "^1.8.1"
