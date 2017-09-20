@@ -1,13 +1,13 @@
 # BlackFire
 Easy to use, maintainable, modular MEAN boilerplate.
 
-## Installation
+## Download
 ```
 git clone https://github.com/shajanjp/blackfire.git my-app
 cd my-app
 ```
 
-## Dependancy Installation
+## Install Dependencies
 ```
 yarn install
 ```
@@ -21,7 +21,7 @@ npm install
 ./make module car cars Cars
 ```
 
-## Execution
+## Run
 ```
 yarn start
 ```
