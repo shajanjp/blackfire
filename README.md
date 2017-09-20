@@ -1,5 +1,5 @@
-# blackfire
-Easy to use, maintainable MEAN boilerplate.
+# BlackFire
+Easy to use, maintainable, modular MEAN boilerplate.
 
 ## Installation
 ```
