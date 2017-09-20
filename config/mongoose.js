@@ -1,10 +1,12 @@
-var config = require('./env/'+ process.env.NODE_ENV +'.js'),
-mongoose = require('mongoose');
+var config = require('./env/'+ process.env.NODE_ENV +'.js');
+const mongoose = require('mongoose');
+mongoose.Promise = Promise;
+
 var activeModules = require('./modules.js').activeModules;
 var moduleModels;
 
 module.exports = function(){
-	var db = mongoose.connect(config.db,  {
+	var db = mongoose.connect(config.db, {
 		useMongoClient: true
 	});
 	console.log("registering mongoDB schemas...");
