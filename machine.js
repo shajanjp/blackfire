@@ -60,12 +60,11 @@ function addModuleToList(moduleName, moduleAPIRoot) {
 	};
 
 	fs.readFile(modulesListPath, 'utf8', (err, content) => {
-		console.log('original', content);
 		if (err) throw err;
 		let modulesList = JSON.parse(content);
 		modulesList.push(moduleDataItem);
-		console.log('modified', JSON.stringify(modulesList, null, 8));
-		makeFile(modulesListPath, JSON.stringify(modulesList, null, 2))
+		makeFile(modulesListPath, JSON.stringify(modulesList, null, 2));
+		console.log(`Module added to modulesListPath`);
 	});
 }
 
