@@ -8,6 +8,7 @@ var activeModules = require('./modules.js').activeModules;
 
 module.exports = function(){
 	var app = express();
+
 	if(process.env.NODE_ENV === 'development'){
 		app.use(morgan('dev'));
 	} else if(process.env.NODE_ENV === 'production'){
@@ -18,20 +19,19 @@ module.exports = function(){
 	app.use(bodyParser.urlencoded({
 		extended: true
 	}));
+
 	app.use(cookieParser());
 
-	// Loading routes.
-	console.log("loading routes...");
+	console.log('Loading routes...');
 	activeModules.forEach(function(module) {
 		moduleRoutes = require('../app/' + module.name + '/config/' + module.name + '.locals.json').routes;
 		if(moduleRoutes != undefined){
 			moduleRoutes.forEach(function(routeFile){
-				require('../app/'+ module.name + '/routes/' + routeFile)(app);
+				app.use(module.root, require('../app/'+ module.name + '/routes/' + routeFile));
 				console.log("loading " + routeFile);
 			});
 		}
 	});
 
-	app.use(express.static('./app'));
 	return app;
 }
