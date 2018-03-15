@@ -1,0 +1,7 @@
+{
+	"name" : "cats",
+	"title" : "Cats",
+	"description" : "Cats will be cats !",
+	"routes": ["cats.server.api.route.js"],
+	"root": "/cats"
+}
