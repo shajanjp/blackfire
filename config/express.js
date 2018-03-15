@@ -5,6 +5,7 @@ var compress = require('compression');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var activeModules = require('./modules.js').activeModules;
+var mainRoutes = express.Router();
 
 module.exports = function(){
 	var app = express();
@@ -27,11 +28,13 @@ module.exports = function(){
 		moduleRoutes = require('../app/' + module.name + '/config/' + module.name + '.locals.json').routes;
 		if(moduleRoutes != undefined){
 			moduleRoutes.forEach(function(routeFile){
-				app.use(module.root, require('../app/'+ module.name + '/routes/' + routeFile));
+				mainRoutes.use(module.root, require('../app/'+ module.name + '/routes/' + routeFile));
 				console.log("loading " + routeFile);
 			});
 		}
 	});
+	
+	app.use('/api', mainRoutes);
 
 	return app;
 }
