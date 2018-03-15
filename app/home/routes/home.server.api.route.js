@@ -3,5 +3,5 @@ var domainRoot = '/api';
 
 module.exports = function(app){
 	app.route(domainRoot + '/')
-	.get(homeController.homeAPI);
+	.get(homeController.home);
 }
