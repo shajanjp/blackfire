@@ -2,6 +2,7 @@
 	"name" : "cats",
 	"title" : "Cats",
 	"description" : "Cats will be cats !",
-	"routes": ["cats.server.api.route.js"],
+	"routes": ["cats.server.route.js"],
+	"models": ["cats.server.model.js"],
 	"root": "/cats"
 }
