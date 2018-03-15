@@ -1,7 +1,0 @@
-{
-	"name" : "home",
-	"title" : "BlackFire",
-	"description" : "Easy to use, maintainable MEAN boilerplate.",
-	"routes": ["home.server.api.route.js"],
-	"root": "/"
-}
