@@ -25,7 +25,7 @@ module.exports = function(){
 
 	console.log('Loading routes...');
 	activeModules.forEach(function(module) {
-		moduleRoutes = require('../app/' + module.name + '/config/' + module.name + '.locals.json').routes;
+		moduleRoutes = require('../app/' + module.name + '/config/' + module.name + '.config.json').routes;
 		if(moduleRoutes != undefined){
 			moduleRoutes.forEach(function(routeFile){
 				mainRoutes.use(module.root, require('../app/'+ module.name + '/routes/' + routeFile));

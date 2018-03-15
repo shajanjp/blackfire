@@ -11,7 +11,7 @@ module.exports = function(){
 	});
 	console.log("registering mongoDB schemas...");
 	activeModules.forEach(function(module) {
-		moduleModels = require('../app/' + module.name + '/config/' + module.name + '.locals.json').models;
+		moduleModels = require('../app/' + module.name + '/config/' + module.name + '.config.json').models;
 		if(moduleModels != undefined){
 			moduleModels.forEach(function(modelFile){
 				require('../app/'+ module.name + '/models/' + modelFile);
