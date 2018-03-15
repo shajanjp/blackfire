@@ -1,7 +1,7 @@
 [
 	{
-		"name": "home",
-		"title": "BlackFire",
-		"root": "/birds"
+		"name": "cats",
+		"title": "Cats",
+		"root": "/cats"
 	}
 ]
