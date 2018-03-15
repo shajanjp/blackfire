@@ -20,13 +20,6 @@ module.exports = function(){
 	}));
 	app.use(cookieParser());
 
-	// Setting view engine
-	app.set('view engine', 'ejs');
-	app.set('views', './app');
-
-	// Saving module details to local 
-	app.locals = require('./app-config.js').moduleLocals;
-
 	// Loading routes.
 	console.log("loading routes...");
 	activeModules.forEach(function(module) {
