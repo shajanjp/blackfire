@@ -2,6 +2,6 @@
 	{
 		"name": "home",
 		"title": "BlackFire",
-		"url": "/"
+		"root": "/birds"
 	}
 ]
