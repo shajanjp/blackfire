@@ -90,7 +90,6 @@ if(process.argv.length == 5){
 	userInput.moduleName = process.argv[2];
 	userInput.moduleSingular = process.argv[3];
 	userInput.moduleAPIRoot = process.argv[4];
-	console.log(userInput);	
 	makeModuleFilesAndFolders(userInput.moduleName, userInput.moduleSingular, userInput.moduleAPIRoot);
 } else {
 	console.log('Error in usage.');
