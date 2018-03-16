@@ -269,7 +269,9 @@ if(process.argv[2] == "init"){
 	makeModulesJsonFile();
 	makeModulesJsFile();
 	makeEnvFiles();
-	return console.log("Success");
+	makeEnvIndexJsFile();
+	makeFolder("app");
+	return console.log("Success!");
 }
 
 if(process.argv.length == 5){
