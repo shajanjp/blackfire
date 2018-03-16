@@ -1,0 +1,8 @@
+{
+	"db": {
+		"url": "mongodb://localhost/defbird"
+	},
+	"app" : {
+		"port": 3000
+	}
+}
