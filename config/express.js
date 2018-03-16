@@ -1,4 +1,4 @@
-var config = require('./env/'+ process.env.NODE_ENV +'.js');
+let config = require('./env');
 var express = require('express');
 var morgan = require('morgan');
 var compress = require('compression');
@@ -23,7 +23,7 @@ module.exports = function(){
 
 	app.use(cookieParser());
 
-	console.log('Loading routes...');
+	console.log('loading routes...');
 	activeModules.forEach(function(module) {
 		moduleRoutes = require('../app/' + module.name + '/config/' + module.name + '.config.json').routes;
 		if(moduleRoutes != undefined){
