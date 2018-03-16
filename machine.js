@@ -181,24 +181,19 @@ module.exports = function(){
 
 
 function makeModulesJsFile(){
-	let modulesJsonFileData = `var fs = require('fs');
+	let modulesJsFileData = `var fs = require('fs');
 var activeModules = JSON.parse(fs.readFileSync('config/modules.json', 'utf8'));
 exports.activeModules = activeModules;`;
 	makeFolder("config");
-	makeFile("config/modules.json", modulesJsonFileData);
+	makeFile("config/modules.js", modulesJsFileData);
 }
 
 
 function makeModulesJsonFile(){
-	let modulesJsData = `[
-	{
-		"name": "cats",
-		"title": "Cats",
-		"root": "/cats"
-	}
+	let modulesJsonFileData = `[
 ]`;
 	makeFolder("config");
-	makeFile("config/modules.json", modulesJsData);
+	makeFile("config/modules.json", modulesJsonFileData);
 }
 
 function makeMongooseJsFile() {
@@ -257,7 +252,7 @@ if(typeof require(\`./\${ENV_USING}.json\`) !== "object") {
 }
 console.log(\`Using configuration from \${ENV_USING}.json\`);
 
-module.exports = require(`./\${ENV_USING}.json`);`;
+module.exports = require(\`./\${ENV_USING}.json\`);`;
 
 	makeFolder("config");
 	makeFolder("config/env");
