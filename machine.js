@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const modulesDir = 'app';
-const modulesListPath = 'config/modules_list.json';
+const modulesListPath = 'config/modules.json';
 
 function makeFolder(folderPath) {
 	if (!fs.existsSync(folderPath)) {
