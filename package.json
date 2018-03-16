@@ -1,6 +1,6 @@
 {
-  "name": "BlackFire",
-  "version": "0.0.1",
+  "name": "blackfire",
+  "version": "0.0.19",
   "description": "Easy to use, maintainable MEAN boilerplate.",
   "main": "server.js",
   "dependencies": {
