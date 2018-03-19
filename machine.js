@@ -185,7 +185,7 @@ if(process.argv[2] == "init"){
 	return console.log("Success!");
 }
 
-if(process.argv.length == 5){
+if(process.argv.length == 6 && process.argv[2] == "module"){
 	let userInput = {};
 	userInput.moduleName = process.argv[2];
 	userInput.moduleSingular = process.argv[3];
