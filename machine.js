@@ -10,6 +10,7 @@ function makeFileFrom(localFile, remoteFile) {
 	https.get(remoteFile, function (response) {
 		response.on('data', function (data) {
 			fs.writeFile(localFile, data, 'utf8');
+			console.log(`File ${localFile} created.`)
 		});
 	})
 	.on('error', function (err) {
