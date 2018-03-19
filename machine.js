@@ -2,12 +2,12 @@
 const fs = require('fs');
 const modulesDir = 'app';
 const modulesListPath = 'config/modules.json';
-
 const http = require('follow-redirects').http;
 const https = require('follow-redirects').https;
+const githubRoot = "https://github.com/shajanjp/blackfire/raw/master/";
 
-function makeFileFrom(localFile, remoteFile) {
-	https.get(remoteFile, function (response) {
+function githubDownload(localFile, remoteFile) {
+	https.get(`${githubRoot}${remoteFile}`, function (response) {
 		response.on('data', function (data) {
 			fs.writeFile(localFile, data, 'utf8');
 			console.log(`File ${localFile} created.`)
@@ -102,27 +102,27 @@ function makeModuleFilesAndFolders(moduleName, moduleSingular, moduleAPIRoot) {
 }
 
 function makePackageJsonFile(appName){
-	makeFileFrom("package.json", "https://github.com/shajanjp/blackfire/raw/master/package.json");
+	githubDownload("package.json", "package.json");
 }
 
 function makeGitIgnoreFile(){
-	makeFileFrom('.gitignore', "https://github.com/shajanjp/blackfire/raw/master/.gitignore");
+	githubDownload('.gitignore', ".gitignore");
 }
 
 function makeServerJsFile(){
-	makeFileFrom("server.js", "https://github.com/shajanjp/blackfire/raw/master/server.js");
+	githubDownload("server.js", "server.js");
 }
 
 
 function makeExpressJsFile() {
 	makeFolder("config");
-	makeFileFrom("config/express.js", "https://github.com/shajanjp/blackfire/raw/master/config/express.js");
+	githubDownload("config/express.js", "config/express.js");
 }
 
 
 function makeModulesJsFile(){
 	makeFolder("config");
-	makeFileFrom("config/modules.js", "https://github.com/shajanjp/blackfire/raw/master/config/modules.js");
+	githubDownload("config/modules.js", "config/modules.js");
 }
 
 
@@ -134,7 +134,7 @@ function makeModulesJsonFile(){
 
 function makeMongooseJsFile() {
 	makeFolder("config");
-	makeFileFrom("config/mongoose.js", "https://github.com/shajanjp/blackfire/raw/master/config/mongoose.js");
+	githubDownload("config/mongoose.js", "config/mongoose.js");
 }
 
 function makeEnvFiles(){
@@ -157,7 +157,7 @@ function makeEnvFiles(){
 function makeEnvIndexJsFile(){
 	makeFolder("config");
 	makeFolder("config/env");
-	makeFileFrom("config/env/index.js", "https://github.com/shajanjp/blackfire/raw/master/config/env/index.js");
+	githubDownload("config/env/index.js", "config/env/index.js");
 }
 
  
