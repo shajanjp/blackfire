@@ -6,6 +6,8 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var activeModules = require('./modules.js').activeModules;
 var mainRoutes = express.Router();
+var swaggerUi = require('swagger-ui-express');
+var swaggerDocument = require('./swagger.js');
 
 module.exports = function(){
 	var app = express();
@@ -22,6 +24,8 @@ module.exports = function(){
 	}));
 
 	app.use(cookieParser());
+
+	app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 	console.log('loading routes...');
 	activeModules.forEach(function(module) {
