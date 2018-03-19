@@ -1,0 +1,37 @@
+{
+  "name": "blackfire",
+  "version": "0.0.19",
+  "description": "Easy to use, maintainable MEAN boilerplate.",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.7.2",
+    "compression": "^1.7.0",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.4",
+    "mongoose": "^4.11.6"
+  },
+  "devDependencies": {
+    "morgan": "^1.8.1",
+    "nodemon": "^1.17.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shajanjp/blackfire.git"
+  },
+  "bin": {
+    "blackfire": "./machine.js"
+  },
+  "keywords": [
+    "blackfire",
+    "MEAN",
+    "framework",
+    "boilerplate",
+    "GuysWhoCode"
+  ],
+  "author": "shajanjp@gmail.com",
+  "license": "ISC"
+}
