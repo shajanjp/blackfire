@@ -9,8 +9,12 @@ const githubRoot = "https://github.com/shajanjp/blackfire/raw/master/";
 function githubDownload(localFile, remoteFile) {
 	https.get(`${githubRoot}${remoteFile}`, function (response) {
 		response.on('data', function (data) {
-			fs.writeFile(localFile, data, 'utf8');
-			console.log(`File ${localFile} created.`)
+			fs.writeFile(localFile, data, 'utf8', function(err){
+				if(!err)
+					console.log(`File ${localFile} created.`);
+				else
+					console.error(`Couldn't download ${localFile}`);
+			});
 		});
 	})
 	.on('error', function (err) {
