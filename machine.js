@@ -187,9 +187,9 @@ if(process.argv[2] == "init"){
 
 if(process.argv.length == 6 && process.argv[2] == "module"){
 	let userInput = {};
-	userInput.moduleName = process.argv[2];
-	userInput.moduleSingular = process.argv[3];
-	userInput.moduleAPIRoot = process.argv[4];
+	userInput.moduleName = process.argv[3];
+	userInput.moduleSingular = process.argv[4];
+	userInput.moduleAPIRoot = process.argv[5];
 	makeModuleFilesAndFolders(userInput.moduleName, userInput.moduleSingular, userInput.moduleAPIRoot);
 } else {
 	console.log('Error in usage.');
