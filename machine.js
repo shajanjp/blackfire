@@ -150,7 +150,7 @@ function makeEnvFiles(){
 	makeFolder("config/env");
 	makeFile("config/env/development.json", envData);
 	makeFile("config/env/production.json", envData);
-	makeFile("config/env/default", envData);
+	makeFile("config/env/default.json", envData);
 }
 
 
