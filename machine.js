@@ -3,6 +3,20 @@ const fs = require('fs');
 const modulesDir = 'app';
 const modulesListPath = 'config/modules.json';
 
+const http = require('follow-redirects').http;
+const https = require('follow-redirects').https;
+
+function makeFileFrom(localFile, remoteFile) {
+	https.get(remoteFile, function (response) {
+		response.on('data', function (data) {
+			fs.writeFile(localFile, data, 'utf8');
+		});
+	})
+	.on('error', function (err) {
+		console.error(`Couldn't download ${localFile}`);
+	});
+}
+
 function makeFolder(folderPath) {
 	if (!fs.existsSync(folderPath)) {
 		fs.mkdirSync(folderPath);
