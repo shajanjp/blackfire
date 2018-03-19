@@ -102,7 +102,7 @@ function makeModuleFilesAndFolders(moduleName, moduleSingular, moduleAPIRoot) {
 }
 
 function makePackageJsonFile(appName){
-	githubDownload("package.json", "package.json");
+	githubDownload("package.json", "blackfire-package.json");
 }
 
 function makeGitIgnoreFile(){
