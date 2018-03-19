@@ -157,7 +157,7 @@ function makeEnvFiles(){
 function makeEnvIndexJsFile(){
 	makeFolder("config");
 	makeFolder("config/env");
-	makeFile("config/env/index.js", "https://github.com/shajanjp/blackfire/raw/master/config/env/index.js");
+	makeFileFrom("config/env/index.js", "https://github.com/shajanjp/blackfire/raw/master/config/env/index.js");
 }
 
  
