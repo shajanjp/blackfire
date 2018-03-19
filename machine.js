@@ -101,143 +101,39 @@ function makeModuleFilesAndFolders(moduleName, moduleSingular, moduleAPIRoot) {
 }
 
 function makePackageJsonFile(appName){
-let packageData = `{
-  "name": "catlife",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-  },
-  "dependencies": {
-    "body-parser": "^1.7.2",
-    "compression": "^1.7.0",
-    "cookie-parser": "^1.4.3",
-    "express": "^4.15.4",
-    "mongoose": "^4.11.6"
-  },
-  "devDependencies": {
-    "morgan": "^1.8.1",
-    "nodemon": "^1.17.2"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
-}
-`;
-	makeFile("package.json", packageData);
+	makeFileFrom("package.json", "https://github.com/shajanjp/blackfire/raw/master/package.json");
 }
 
 function makeGitIgnoreFile(){
-	gitIgnoreData = `node_modules/
-npm-debug.log
-yarn.lock`;
-	makeFile('.gitignore', gitIgnoreData);
+	makeFileFrom('.gitignore', "https://github.com/shajanjp/blackfire/raw/master/.gitignore");
 }
 
 function makeServerJsFile(){
-	let serverJsData = `let config = require('./config/env');
-var mongoose = require('./config/mongoose')
-var express = require('./config/express');
-var db = mongoose();
-var	app = express();
-
-app.listen(3000, function() {
-	console.log(\`Server started at http://localhost:\${config.app.port} using \${process.env.NODE_ENV || "default"} config file\`);
-});`;
-	makeFile("server.js", serverJsData);
+	makeFileFrom("server.js", "https://github.com/shajanjp/blackfire/raw/master/server.js");
 }
 
 
-function makeExpressJsFile(){
-	let expressJsData = `let config = require('./env');
-var express = require('express');
-var morgan = require('morgan');
-var compress = require('compression');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var activeModules = require('./modules.js').activeModules;
-var mainRoutes = express.Router();
-
-module.exports = function(){
-	var app = express();
-
-	if(process.env.NODE_ENV === 'development'){
-		app.use(morgan('dev'));
-	} else if(process.env.NODE_ENV === 'production'){
-		app.use(compress());
-	}
-
-	app.use(bodyParser.json());
-	app.use(bodyParser.urlencoded({
-		extended: true
-	}));
-
-	app.use(cookieParser());
-
-	console.log('loading routes...');
-	activeModules.forEach(function(module) {
-		moduleRoutes = require('../app/' + module.name + '/config/' + module.name + '.config.json').routes;
-		if(moduleRoutes != undefined){
-			moduleRoutes.forEach(function(routeFile){
-				mainRoutes.use(module.root, require('../app/'+ module.name + '/routes/' + routeFile));
-				console.log("loading " + routeFile);
-			});
-		}
-	});
-	
-	app.use('/api', mainRoutes);
-
-	return app;
-}`;
+function makeExpressJsFile() {
 	makeFolder("config");
-	makeFile("config/express.js", expressJsData);
+	makeFileFrom("config/express.js", "https://github.com/shajanjp/blackfire/raw/master/config/express.js");
 }
 
 
 function makeModulesJsFile(){
-	let modulesJsFileData = `var fs = require('fs');
-var activeModules = JSON.parse(fs.readFileSync('config/modules.json', 'utf8'));
-exports.activeModules = activeModules;`;
 	makeFolder("config");
-	makeFile("config/modules.js", modulesJsFileData);
+	makeFileFrom("config/modules.js", "https://github.com/shajanjp/blackfire/raw/master/config/modules.js");
 }
 
 
 function makeModulesJsonFile(){
-	let modulesJsonFileData = `[
-]`;
+	let modulesJsonFileData = `[]`;
 	makeFolder("config");
 	makeFile("config/modules.json", modulesJsonFileData);
 }
 
 function makeMongooseJsFile() {
-	let mongooseJsData = `let config = require('./env/');
-const mongoose = require('mongoose');
-mongoose.Promise = Promise;
-
-var activeModules = require('./modules.js').activeModules;
-var moduleModels;
-
-module.exports = function() {
-	var db = mongoose.connect(config.db.url, {
-		useMongoClient: true
-	});
-
-	console.log(\`using mongodb at \${config.db.url}\`);
-	console.log(\`registering mongoose schemas...\`);
-	activeModules.forEach(function(module) {
-		moduleModels = require('../app/' + module.name + '/config/' + module.name + '.config.json').models;
-		if(moduleModels != undefined && moduleModels.length > 0){
-			moduleModels.forEach(function(modelFile){
-				require('../app/'+ module.name + '/models/' + modelFile);
-				console.log("registering " + modelFile);
-			});
-		}
-	});
-	return db;
-};`;
 	makeFolder("config");
-	makeFile("config/mongoose.js", mongooseJsData);
+	makeFileFrom("config/mongoose.js", "https://github.com/shajanjp/blackfire/raw/master/config/mongoose.js");
 }
 
 function makeEnvFiles(){
@@ -258,19 +154,9 @@ function makeEnvFiles(){
 
 
 function makeEnvIndexJsFile(){
-	let envIndexJsFileData = `const ENV_USING = process.env.NODE_ENV || "default";
-if(typeof require(\`./\${ENV_USING}.json\`) !== "object") {
-	console.log(\`Couldnt find configuration file "\${ENV_USING}.json" in env folder.\`);
-	console.log(\`Set NODE_ENV properly and restart.\`);
-	process.exit();
-}
-console.log(\`Using configuration from \${ENV_USING}.json\`);
-
-module.exports = require(\`./\${ENV_USING}.json\`);`;
-
 	makeFolder("config");
 	makeFolder("config/env");
-	makeFile("config/env/index.js", envIndexJsFileData);
+	makeFile("config/env/index.js", "https://github.com/shajanjp/blackfire/raw/master/config/env/index.js");
 }
 
  
