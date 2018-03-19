@@ -141,6 +141,11 @@ function makeMongooseJsFile() {
 	githubDownload("config/mongoose.js", "config/mongoose.js");
 }
 
+function makeSwaggerJsFile() {
+	makeFolder("config");
+	githubDownload("config/swagger.js", "config/swagger.js");
+}
+
 function makeEnvFiles(){
 	let envData = `{
 	"db": {
@@ -171,6 +176,7 @@ if(process.argv[2] == "init"){
 	makeGitIgnoreFile();
 	makeExpressJsFile();
 	makeMongooseJsFile();
+	makeSwaggerJsFile();
 	makeModulesJsonFile();
 	makeModulesJsFile();
 	makeEnvFiles();
