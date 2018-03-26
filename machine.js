@@ -6,6 +6,31 @@ const http = require('follow-redirects').http;
 const https = require('follow-redirects').https;
 const githubRoot = "https://github.com/shajanjp/blackfire/raw/master/";
 
+if(process.argv[2] == "init"){
+	makeServerJsFile();
+	makePackageJsonFile();
+	makeGitIgnoreFile();
+	makeExpressJsFile();
+	makeMongooseJsFile();
+	makeSwaggerJsFile();
+	makeModulesJsonFile();
+	makeModulesJsFile();
+	makeEnvFiles();
+	makeEnvIndexJsFile();
+	makeFolder("app");
+	return console.log("Success!");
+}
+
+if(process.argv.length == 5 && process.argv[2] == "module"){
+	let userInput = {};
+	userInput.moduleSingular = process.argv[3];
+	userInput.modulePlural = process.argv[4];
+	makeModuleFilesAndFolders(userInput.moduleSingular, userInput.modulePlural);
+} else {
+	console.log('Error in usage.');
+	console.log('Usage: blackfire "cars" "car" "cars"');
+}
+
 function githubDownload(localFile, remoteFile) {
 	https.get(`${githubRoot}${remoteFile}`, function (response) {
 		response.on('data', function (data) {
@@ -69,14 +94,14 @@ module.exports = router;
 	makeFile(filePath, routerData);
 }
 
-function addModuleToList(moduleName, moduleAPIRoot) {
-	let moduleTitle = moduleName.charAt(0).toUpperCase() + moduleName.slice(1);
-	moduleName = moduleName.toLowerCase();
+function addModuleToList(modulePlural) {
+	let moduleTitle = modulePlural.charAt(0).toUpperCase() + modulePlural.slice(1);
+	modulePlural = modulePlural.toLowerCase();
 
 	let moduleDataItem = {
-		"name": moduleName,
+		"name": modulePlural,
 		"title": moduleTitle,
-		"root": `/${moduleAPIRoot}`
+		"root": `/${modulePlural}`
 	};
 
 	fs.readFile(modulesListPath, 'utf8', (err, content) => {
@@ -88,21 +113,22 @@ function addModuleToList(moduleName, moduleAPIRoot) {
 	});
 }
 
-function makeModuleFilesAndFolders(moduleName, moduleSingular, moduleAPIRoot) {
-	let moduleRoot = `${modulesDir}/${moduleName}`;
+function makeModuleFilesAndFolders(moduleSingular, modulePlural) {
+	let moduleRoot = `${modulesDir}/${modulePlural}`;
 	makeFolder(`${moduleRoot}`);
 	makeFolder(`${moduleRoot}/config`);
 	makeFolder(`${moduleRoot}/controllers`);
 	makeFolder(`${moduleRoot}/libraries`);
 	makeFolder(`${moduleRoot}/models`);
 	makeFolder(`${moduleRoot}/routes`);
+	makeFolder(`${moduleRoot}/docs`);
 
-	generateConfigFile(`${moduleRoot}/config/${moduleName}.config.json`, moduleName, moduleSingular); 
-	generateControllerFile(`${moduleRoot}/controllers/${moduleName}.server.controller.js`);
-	makeFile(`${moduleRoot}/libraries/${moduleName}.server.library.js`, ""); 
-	makeFile(`${moduleRoot}/models/${moduleName}.server.model.js`, ""); 
-	generateRouterFile(`${moduleRoot}/routes/${moduleName}.server.route.js`, moduleName, moduleSingular); 
-	addModuleToList(moduleName, moduleAPIRoot)
+	generateConfigFile(`${moduleRoot}/config/${modulePlural}.config.json`, modulePlural, moduleSingular); 
+	generateControllerFile(`${moduleRoot}/controllers/${modulePlural}.server.controller.js`);
+	makeFile(`${moduleRoot}/libraries/${modulePlural}.server.library.js`, ""); 
+	makeFile(`${moduleRoot}/models/${modulePlural}.server.model.js`, ""); 
+	generateRouterFile(`${moduleRoot}/routes/${modulePlural}.server.route.js`, modulePlural, moduleSingular); 
+	addModuleToList(modulePlural)
 }
 
 function makePackageJsonFile(appName){
@@ -167,31 +193,4 @@ function makeEnvIndexJsFile(){
 	makeFolder("config");
 	makeFolder("config/env");
 	githubDownload("config/env/index.js", "config/env/index.js");
-}
-
- 
-if(process.argv[2] == "init"){
-	makeServerJsFile();
-	makePackageJsonFile();
-	makeGitIgnoreFile();
-	makeExpressJsFile();
-	makeMongooseJsFile();
-	makeSwaggerJsFile();
-	makeModulesJsonFile();
-	makeModulesJsFile();
-	makeEnvFiles();
-	makeEnvIndexJsFile();
-	makeFolder("app");
-	return console.log("Success!");
-}
-
-if(process.argv.length == 6 && process.argv[2] == "module"){
-	let userInput = {};
-	userInput.moduleName = process.argv[3];
-	userInput.moduleSingular = process.argv[4];
-	userInput.moduleAPIRoot = process.argv[5];
-	makeModuleFilesAndFolders(userInput.moduleName, userInput.moduleSingular, userInput.moduleAPIRoot);
-} else {
-	console.log('Error in usage.');
-	console.log('Usage: blackfire "cars" "car" "cars"');
 }
