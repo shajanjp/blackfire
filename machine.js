@@ -22,10 +22,12 @@ if(process.argv[2] == "init"){
 }
 
 if(process.argv.length == 5 && process.argv[2] == "module"){
-	let userInput = {};
-	userInput.moduleSingular = process.argv[3];
-	userInput.modulePlural = process.argv[4];
-	makeModuleFilesAndFolders(userInput.moduleSingular, userInput.modulePlural);
+	moduleDetails.singular = process.argv[3];
+	moduleDetails.plural = process.argv[4];
+	moduleDetails.singularCamel = moduleDetails.singular.charAt(0).toUpperCase() + moduleDetails.singular.slice(1);
+	moduleDetails.pluralCamel = moduleDetails.plural.charAt(0).toUpperCase() + moduleDetails.plural.slice(1);
+
+	makeModuleFilesAndFolders(moduleDetails.singular, moduleDetails.plural);
 } else {
 	console.log('Error in usage.');
 	console.log('Usage: blackfire "cars" "car" "cars"');
