@@ -83,27 +83,24 @@ function generateControllerFile(filePath) {
 	makeFile(filePath, controllerData);
 }
 
-function generateRouterFile(filePath, moduleName, moduleSingular) {
+function generateRouterFile(filePath) {
 	let routerData = `const express = require('express');
 const router = express.Router();
-const ${moduleSingular}Controller = require('../controllers/${moduleName}.server.controller.js');
+const ${moduleDetails.singular}Controller = require('../controllers/${moduleDetails.plural}.server.controller.js');
 
 router.route('/')
-.get(${moduleSingular}Controller.home);
+.get(${moduleDetails.singular}Controller.home);
 
 module.exports = router;
 `;
 	makeFile(filePath, routerData);
 }
 
-function addModuleToList(modulePlural) {
-	let moduleTitle = modulePlural.charAt(0).toUpperCase() + modulePlural.slice(1);
-	modulePlural = modulePlural.toLowerCase();
-
+function addModuleToList() {
 	let moduleDataItem = {
-		"name": modulePlural,
-		"title": moduleTitle,
-		"root": `/${modulePlural}`
+		"name": moduleDetails.plural,
+		"title": moduleDetails.pluralCamel,
+		"root": `/${moduleDetails.plural}`
 	};
 
 	fs.readFile(modulesListPath, 'utf8', (err, content) => {
@@ -116,7 +113,7 @@ function addModuleToList(modulePlural) {
 }
 
 function makeModuleFilesAndFolders(moduleSingular, modulePlural) {
-	let moduleRoot = `${modulesDir}/${modulePlural}`;
+	let moduleRoot = `${modulesDir}/${moduleDetails.plural}`;
 	makeFolder(`${moduleRoot}`);
 	makeFolder(`${moduleRoot}/config`);
 	makeFolder(`${moduleRoot}/controllers`);
@@ -125,12 +122,12 @@ function makeModuleFilesAndFolders(moduleSingular, modulePlural) {
 	makeFolder(`${moduleRoot}/routes`);
 	makeFolder(`${moduleRoot}/docs`);
 
-	generateConfigFile(`${moduleRoot}/config/${modulePlural}.config.json`, modulePlural, moduleSingular); 
-	generateControllerFile(`${moduleRoot}/controllers/${modulePlural}.server.controller.js`);
-	makeFile(`${moduleRoot}/libraries/${modulePlural}.server.library.js`, ""); 
-	makeFile(`${moduleRoot}/models/${modulePlural}.server.model.js`, ""); 
-	generateRouterFile(`${moduleRoot}/routes/${modulePlural}.server.route.js`, modulePlural, moduleSingular); 
-	addModuleToList(modulePlural)
+	generateConfigFile(`${moduleRoot}/config/${moduleDetails.plural}.config.json`); 
+	generateControllerFile(`${moduleRoot}/controllers/${moduleDetails.plural}.server.controller.js`);
+	makeFile(`${moduleRoot}/libraries/${moduleDetails.plural}.server.library.js`, ""); 
+	makeFile(`${moduleRoot}/models/${moduleDetails.plural}.server.model.js`, ""); 
+	generateRouterFile(`${moduleRoot}/routes/${moduleDetails.plural}.server.route.js`); 
+	addModuleToList();
 }
 
 function makePackageJsonFile(appName){
