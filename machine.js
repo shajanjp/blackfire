@@ -5,6 +5,7 @@ const modulesListPath = 'config/modules.json';
 const http = require('follow-redirects').http;
 const https = require('follow-redirects').https;
 const githubRoot = "https://github.com/shajanjp/blackfire/raw/master/";
+let moduleDetails = {};
 
 if(process.argv[2] == "init"){
 	makeServerJsFile();
