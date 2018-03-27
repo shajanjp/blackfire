@@ -88,8 +88,31 @@ makeFile(filePath, modelFileData);
 }
 
 function generateControllerFile(filePath) {
-	let controllerData = `exports.home = function(req, res) {
-	return res.status(200).json({ "sucess": true });
+	let controllerData = `var ${moduleDetails.singularCamel} = require('mongoose').model('${moduleDetails.singular}')
+let ${moduleDetails.singular}Validation = require('../libraries/${moduleDetails.plural}.server.validation.js');
+
+exports.${moduleDetails.singular}byId = (req, res, next, ${moduleDetails.singular}_id) => {
+	next();
+}
+
+exports.create${moduleDetails.singularCamel} = (req, res) => {
+	res.json({ "success": true });
+}
+
+exports.list${moduleDetails.pluralCamel} = (req, res) => {
+	res.json({ "success": true });
+}
+
+exports.update${moduleDetails.singularCamel} = (req, res) => {
+	res.json({ "success": true });
+}
+
+exports.get${moduleDetails.singularCamel} = (req, res) => {
+	res.json({ "success": true });
+}
+
+exports.remove${moduleDetails.singularCamel} = (req, res) => {
+	res.json({ "success": true });
 }`;
 	makeFile(filePath, controllerData);
 }
