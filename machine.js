@@ -164,9 +164,10 @@ function makeModuleFilesAndFolders(moduleSingular, modulePlural) {
 	makeFolder(`${moduleRoot}/docs`);
 
 	generateConfigFile(`${moduleRoot}/config/${moduleDetails.plural}.config.json`); 
+	generateModelFile(`${moduleRoot}/models/${moduleDetails.plural}.server.model.js`)
 	generateControllerFile(`${moduleRoot}/controllers/${moduleDetails.plural}.server.controller.js`);
+	makeFile(`${moduleRoot}/libraries/${moduleDetails.plural}.server.validation.js`, ""); 
 	makeFile(`${moduleRoot}/libraries/${moduleDetails.plural}.server.library.js`, ""); 
-	makeFile(`${moduleRoot}/models/${moduleDetails.plural}.server.model.js`, ""); 
 	generateRouterFile(`${moduleRoot}/routes/${moduleDetails.plural}.server.route.js`); 
 	addModuleToList();
 }
