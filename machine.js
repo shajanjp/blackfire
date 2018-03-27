@@ -76,6 +76,17 @@ function generateConfigFile(filePath) {
 	makeFile(filePath, configData);
 }
 
+function generateModelFile(filePath) {
+	let modelFileData = `const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+let ${moduleDetails.singular}Schema = new Schema({
+});
+
+mongoose.model('${moduleDetails.singular}', ${moduleDetails.singular}Schema);`
+makeFile(filePath, modelFileData);
+}
+
 function generateControllerFile(filePath) {
 	let controllerData = `exports.home = function(req, res) {
 	return res.status(200).json({ "sucess": true });
