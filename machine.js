@@ -100,10 +100,17 @@ const router = express.Router();
 const ${moduleDetails.singular}Controller = require('../controllers/${moduleDetails.plural}.server.controller.js');
 
 router.route('/')
-.get(${moduleDetails.singular}Controller.home);
+.post(${moduleDetails.singular}Controller.create${moduleDetails.singularCamel})
+.get(${moduleDetails.singular}Controller.list${moduleDetails.pluralCamel});
 
-module.exports = router;
-`;
+router.route('/:${moduleDetails.singular}_id')
+.put(${moduleDetails.singular}Controller.update${moduleDetails.singularCamel})
+.get(${moduleDetails.singular}Controller.get${moduleDetails.singularCamel})
+.delete(${moduleDetails.singular}Controller.remove${moduleDetails.singularCamel})
+
+router.param('${moduleDetails.singular}_id', ${moduleDetails.singular}Controller.${moduleDetails.singular}byId)
+
+module.exports = router;`;
 	makeFile(filePath, routerData);
 }
 
