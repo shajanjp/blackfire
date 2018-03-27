@@ -64,15 +64,14 @@ function makeFile(filePath, content) {
 	});
 }
 
-function generateConfigFile(filePath, moduleName, moduleSingular) {
-	let moduleTitle = moduleName.charAt(0).toUpperCase() + moduleName.slice(1);
+function generateConfigFile(filePath) {
 	let configData = `{
-	"name" : "${moduleName.toLowerCase()}",
-	"title" : "${moduleTitle}",
-	"description" : "${moduleTitle} will be ${moduleName.toLowerCase()} !",
-	"routes": ["${moduleName.toLowerCase()}.server.route.js"],
-	"models": ["${moduleName.toLowerCase()}.server.model.js"],
-	"root": "/${moduleName.toLowerCase()}"
+	"name" : "${moduleDetails.plural}",
+	"title" : "${moduleDetails.pluralCamel}",
+	"description" : "${moduleDetails.pluralCamel} will be ${moduleDetails.plural} !",
+	"routes": ["${moduleDetails.plural}.server.route.js"],
+	"models": ["${moduleDetails.plural}.server.model.js"],
+	"root": "/${moduleDetails.plural}"
 }`;
 	makeFile(filePath, configData);
 }
