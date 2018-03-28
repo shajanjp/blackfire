@@ -81,6 +81,7 @@ function generateModelFile(filePath) {
 const Schema = mongoose.Schema;
 
 let ${moduleDetails.singular}Schema = new Schema({
+	title: String
 });
 
 mongoose.model('${moduleDetails.singular}', ${moduleDetails.singular}Schema);`
