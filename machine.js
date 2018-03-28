@@ -247,7 +247,7 @@ function makeModuleFilesAndFolders(moduleSingular, modulePlural) {
 	generateConfigFile(`${moduleRoot}/config/${moduleDetails.plural}.config.json`); 
 	generateModelFile(`${moduleRoot}/models/${moduleDetails.plural}.server.model.js`)
 	generateControllerFile(`${moduleRoot}/controllers/${moduleDetails.plural}.server.controller.js`);
-	makeFile(`${moduleRoot}/libraries/${moduleDetails.plural}.server.validation.js`, ""); 
+	generateValidaionFile(`${moduleRoot}/libraries/${moduleDetails.plural}.server.validation.js`); 
 	makeFile(`${moduleRoot}/libraries/${moduleDetails.plural}.server.library.js`, ""); 
 	generateRouterFile(`${moduleRoot}/routes/${moduleDetails.plural}.server.route.js`); 
 	addModuleToList();
