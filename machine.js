@@ -89,31 +89,87 @@ makeFile(filePath, modelFileData);
 }
 
 function generateControllerFile(filePath) {
-	let controllerData = `var ${moduleDetails.singularCamel} = require('mongoose').model('${moduleDetails.singular}')
-let ${moduleDetails.singular}Validation = require('../libraries/${moduleDetails.plural}.server.validation.js');
+	let controllerData = `const ${moduleDetails.singularCamel} = require('mongoose').model('${moduleDetails.singular}');
+const ${moduleDetails.singular}Validation = require('../libraries/${moduleDetails.plural}.server.validation.js');
 
 exports.${moduleDetails.singular}byId = (req, res, next, ${moduleDetails.singular}_id) => {
-	next();
+	${moduleDetails.singularCamel}.findOne({ _id: ${moduleDetails.singular}_id })
+	.then(${moduleDetails.singular}Found => {
+		res.locals.${moduleDetails.singular}_id = ${moduleDetails.singular}Found._id;
+		next();
+	})
+	.catch(err => {
+		return res.status(404).json({ 
+			"message": '${moduleDetails.singularCamel} not found!',
+			"errors": err
+		});
+	});
 }
 
-exports.create${moduleDetails.singularCamel} = (req, res) => {
-	res.json({ "success": true });
+exports.insert${moduleDetails.singularCamel} = (req, res) => {
+	let new${moduleDetails.singularCamel} = new ${moduleDetails.singularCamel}(res.locals.${moduleDetails.singular});
+	new${moduleDetails.singularCamel}.save()
+	.then(${moduleDetails.singular}Saved => {
+		return res.status(201).json(${moduleDetails.singular}Saved);
+	})
+	.catch(err => {
+		return res.status(500).json({
+			"message": "Internal error",
+			"errors": err
+		});
+	});
 }
 
-exports.list${moduleDetails.pluralCamel} = (req, res) => {
-	res.json({ "success": true });
+exports.get${moduleDetails.pluralCamel} = (req, res) => {
+	${moduleDetails.singularCamel}.find({})
+	.then(${moduleDetails.singular}List => {
+		return res.status(200).json(${moduleDetails.singular}List);
+	})
+	.catch(err => {
+		return res.status(500).json({
+			"message": "Internal error",
+			"errors": err
+		});
+	});
 }
 
 exports.update${moduleDetails.singularCamel} = (req, res) => {
-	res.json({ "success": true });
+	${moduleDetails.singularCamel}.update({ _id: res.locals.${moduleDetails.singular}_id }, res.locals.${moduleDetails.singular}, { safe: true })
+	.then(${moduleDetails.singular}Updated => {
+		return res.status(200).json({});
+	})
+	.catch(err => {
+		return res.status(500).json({
+			"message": "Internal error",
+			"errors": err
+		});
+	});
 }
 
 exports.get${moduleDetails.singularCamel} = (req, res) => {
-	res.json({ "success": true });
+	${moduleDetails.singularCamel}.findOne({ _id: res.locals.${moduleDetails.singular}_id }).exec()
+	.then(${moduleDetails.singular}Found => {
+		return res.status(200).json(${moduleDetails.singular}Found);
+	})
+	.catch(err => {
+		return res.status(500).json({
+			"message": "Internal error",
+			"errors": err
+		});
+	});
 }
 
 exports.remove${moduleDetails.singularCamel} = (req, res) => {
-	res.json({ "success": true });
+	${moduleDetails.singularCamel}.remove({ _id: res.locals.${moduleDetails.singular}_id })
+	.then(${moduleDetails.singular}Removed => {
+		return res.status(200).json({});
+	})
+	.catch(err => {
+		return res.satus(500).json({
+			"message": "Internal error",
+			"errors": err
+		});
+	});
 }`;
 	makeFile(filePath, controllerData);
 }
