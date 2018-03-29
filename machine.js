@@ -8,6 +8,25 @@ const githubRoot = "https://github.com/shajanjp/blackfire/raw/master/";
 let moduleDetails = {};
 let appFolder;
 
+if(process.argv.length == 3 && (process.argv[2] == "help" || process.argv[2] == "--help" || process.argv[2] == "h" || process.argv[2] == "-h")){
+console.log(`
+Usage: blackfire <command>
+
+where <command> is one of:
+    new, module, remove, status, report
+
+blackfire help <term>  search for help on <term>
+blackfire <cmd> -h     quick help on <cmd>
+blackfire new foo     creates an application foo
+blackfire module <singular> <plural>     adds module cats
+	eg : blackfire module cat cats
+	
+Config info can be viewed via: blackfire help config
+
+blackfire@0.0.24
+`);
+}
+
 if(process.argv.length == 4 && process.argv[2] == "new"){
 	appFolder = process.argv[3];
 	makeFolder(appFolder);
@@ -22,7 +41,6 @@ if(process.argv.length == 4 && process.argv[2] == "new"){
 	makeEnvFiles();
 	makeEnvIndexJsFile();
 	makeFolder(`${appFolder}/app`);
-	return console.log("Success!");
 }
 
 if(process.argv.length == 5 && process.argv[2] == "module"){
