@@ -6,8 +6,11 @@ const http = require('follow-redirects').http;
 const https = require('follow-redirects').https;
 const githubRoot = "https://github.com/shajanjp/blackfire/raw/master/";
 let moduleDetails = {};
+let appFolder;
 
-if(process.argv[2] == "init"){
+if(process.argv.length == 4 && process.argv[2] == "new"){
+	appFolder = process.argv[3];
+	makeFolder(appFolder);
 	makeServerJsFile();
 	makePackageJsonFile();
 	makeGitIgnoreFile();
@@ -18,7 +21,7 @@ if(process.argv[2] == "init"){
 	makeModulesJsFile();
 	makeEnvFiles();
 	makeEnvIndexJsFile();
-	makeFolder("app");
+	makeFolder(`${appFolder}/app`);
 	return console.log("Success!");
 }
 
@@ -39,28 +42,28 @@ function githubDownload(localFile, remoteFile) {
 		response.on('data', function (data) {
 			fs.writeFile(localFile, data, 'utf8', function(err){
 				if(!err)
-					console.log(`File ${localFile} created.`);
+					console.log(`create ${localFile}`);
 				else
-					console.error(`Couldn't download ${localFile}`);
+					console.error(`couldn't download ${localFile}`);
 			});
 		});
 	})
 	.on('error', function (err) {
-		console.error(`Couldn't download ${localFile}`);
+		console.error(`couldn't download ${localFile}`);
 	});
 }
 
 function makeFolder(folderPath) {
 	if (!fs.existsSync(folderPath)) {
 		fs.mkdirSync(folderPath);
-		console.log(`Folder ${folderPath} created.`);
+		console.log(`create ${folderPath}/`);
 	}
 }
 
 function makeFile(filePath, content) {
 	fs.writeFile(filePath, content, (err) => {
 		if (err) throw err;
-		console.log(`File ${filePath} created.`);
+		console.log(`create ${filePath}`);
 	});
 }
 
@@ -254,44 +257,44 @@ function makeModuleFilesAndFolders(moduleSingular, modulePlural) {
 }
 
 function makePackageJsonFile(appName){
-	githubDownload("package.json", "blackfire-package.json");
+	githubDownload(`${appFolder}/package.json`, "blackfire-package.json");
 }
 
 function makeGitIgnoreFile(){
-	githubDownload('.gitignore', ".gitignore");
+	githubDownload(`${appFolder}/.gitignore`, ".gitignore");
 }
 
 function makeServerJsFile(){
-	githubDownload("server.js", "server.js");
+	githubDownload(`${appFolder}/server.js`, "server.js");
 }
 
 
 function makeExpressJsFile() {
-	makeFolder("config");
-	githubDownload("config/express.js", "config/express.js");
+	makeFolder(`${appFolder}/config`);
+	githubDownload(`${appFolder}/config/express.js`, "config/express.js");
 }
 
 
 function makeModulesJsFile(){
-	makeFolder("config");
-	githubDownload("config/modules.js", "config/modules.js");
+	makeFolder(`${appFolder}/config`);
+	githubDownload(`${appFolder}/config/modules.js`, "config/modules.js");
 }
 
 
 function makeModulesJsonFile(){
 	let modulesJsonFileData = `[]`;
-	makeFolder("config");
-	makeFile("config/modules.json", modulesJsonFileData);
+	makeFolder(`${appFolder}/config`);
+	makeFile(`${appFolder}/config/modules.json`, modulesJsonFileData);
 }
 
 function makeMongooseJsFile() {
-	makeFolder("config");
-	githubDownload("config/mongoose.js", "config/mongoose.js");
+	makeFolder(`${appFolder}/config`);
+	githubDownload(`${appFolder}/config/mongoose.js`, "config/mongoose.js");
 }
 
 function makeSwaggerJsFile() {
-	makeFolder("config");
-	githubDownload("config/swagger.js", "config/swagger.js");
+	makeFolder(`${appFolder}/config`);
+	githubDownload(`${appFolder}/config/swagger.js`, "config/swagger.js");
 }
 
 function makeEnvFiles(){
@@ -303,16 +306,16 @@ function makeEnvFiles(){
 		"port": 3000
 	}
 }`;
-	makeFolder("config");
-	makeFolder("config/env");
-	makeFile("config/env/development.json", envData);
-	makeFile("config/env/production.json", envData);
-	makeFile("config/env/default.json", envData);
+	makeFolder(`${appFolder}/config`);
+	makeFolder(`${appFolder}/config/env`);
+	makeFile(`${appFolder}/config/env/development.json`, envData);
+	makeFile(`${appFolder}/config/env/production.json`, envData);
+	makeFile(`${appFolder}/config/env/default.json`, envData);
 }
 
 
 function makeEnvIndexJsFile(){
-	makeFolder("config");
-	makeFolder("config/env");
-	githubDownload("config/env/index.js", "config/env/index.js");
+	makeFolder(`${appFolder}/config`);
+	makeFolder(`${appFolder}/config/env`);
+	githubDownload(`${appFolder}/config/env/index.js`, "config/env/index.js");
 }
