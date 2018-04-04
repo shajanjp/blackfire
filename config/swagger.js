@@ -1,4 +1,5 @@
 let swaggerJSDoc = require('swagger-jsdoc');
+const config = require('../config/env/');
 
 const options = {
   swaggerDefinition: {
@@ -7,8 +8,7 @@ const options = {
       version: '1.0.0',
       description: '',
     },
-    host: 'guyswhocode.com',
-    // basePath: '/api',
+    host: `${config.app.swagger}`,
   },
   apis: ['**/*.docs.yaml'],
 };
