@@ -1,44 +1,44 @@
-let config = require('./env');
-var express = require('express');
-var morgan = require('morgan');
-var compress = require('compression');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var activeModules = require('./modules.js').activeModules;
-var mainRoutes = express.Router();
-var swaggerUi = require('swagger-ui-express');
-var swaggerDocument = require('./swagger.js');
+const express = require('express');
+const morgan = require('morgan');
+const compress = require('compression');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const activeModules = require('./modules.js').activeModules;
 
-module.exports = function(){
-	var app = express();
+const mainRoutes = express.Router();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.js');
 
-	if(process.env.NODE_ENV === 'development'){
-		app.use(morgan('dev'));
-	} else if(process.env.NODE_ENV === 'production'){
-		app.use(compress());
-	}
+module.exports = function () {
+  const app = express();
 
-	app.use(bodyParser.json());
-	app.use(bodyParser.urlencoded({
-		extended: true
-	}));
+  if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'));
+  } else if (process.env.NODE_ENV === 'production') {
+    app.use(compress());
+  }
 
-	app.use(cookieParser());
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({
+    extended: true,
+  }));
 
-	app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+  app.use(cookieParser());
 
-	console.log('loading routes...');
-	activeModules.forEach(function(module) {
-		moduleRoutes = require('../app/' + module.name + '/config/' + module.name + '.config.json').routes;
-		if(moduleRoutes != undefined){
-			moduleRoutes.forEach(function(routeFile){
-				mainRoutes.use(module.root, require('../app/'+ module.name + '/routes/' + routeFile));
-				console.log("loading " + routeFile);
-			});
-		}
-	});
-	
-	app.use('/api', mainRoutes);
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-	return app;
-}
+  console.log('loading routes...');
+  activeModules.forEach((module) => {
+    const moduleRoutes = require(`../app/${module.name}/config/${module.name}.config.json`).routes;
+    if (moduleRoutes !== undefined) {
+      moduleRoutes.forEach((routeFile) => {
+        mainRoutes.use(module.root, require(`../app/${module.name}/routes/${routeFile}`));
+        console.log(`loading ${routeFile}`);
+      });
+    }
+  });
+
+  app.use('/api', mainRoutes);
+
+  return app;
+};
