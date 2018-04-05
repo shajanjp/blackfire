@@ -419,10 +419,11 @@ function makeSwaggerJsFile() {
 function makeEnvFiles() {
   const envData = `{
   "db": {
-    "url": "mongodb://localhost/catsdb"
+    "url": "mongodb://localhost/blackfiredb"
   },
   "app" : {
-    "port": 3000
+    "port": 3000,
+    "host": "localhost"
   }
 }`;
   makeFolder(`${appFolder}/config`);
