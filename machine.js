@@ -4,99 +4,12 @@ const fs = require('fs');
 const modulesDir = 'app';
 const modulesListPath = 'config/modules.json';
 const { https } = require('follow-redirects');
-
 const githubRoot = 'https://github.com/shajanjp/blackfire/raw/master/';
 const moduleDetails = {};
 let appFolder;
 
+const factory = require("./utilities/factory.js");
 const helperUtilities = require("./utilities/lib.generator.js");
-const moduleUtilities = require("./utilities/module.generator.js");
-
-function generateControllerFile(filePath) {
-  const controllerData = `const ${moduleDetails.singularCamel} = require('mongoose').model('${moduleDetails.singular}');
-const ${moduleDetails.singular}Validation = require('../libraries/${moduleDetails.plural}.server.validation.js');
-
-exports.${moduleDetails.singular}byId = (req, res, next, ${moduleDetails.singular}_id) => {
-  ${moduleDetails.singularCamel}.findOne({ _id: ${moduleDetails.singular}_id })
-  .then(${moduleDetails.singular}Found => {
-    res.locals.${moduleDetails.singular}_id = ${moduleDetails.singular}Found._id;
-    next();
-  })
-  .catch(err => {
-    return res.status(404).json({ 
-      "message": '${moduleDetails.singularCamel} not found!',
-      "errors": err
-    });
-  });
-}
-
-exports.insert${moduleDetails.singularCamel} = (req, res) => {
-  let new${moduleDetails.singularCamel} = new ${moduleDetails.singularCamel}(res.locals.${moduleDetails.singular});
-  new${moduleDetails.singularCamel}.save()
-  .then(${moduleDetails.singular}Saved => {
-    return res.status(201).json(${moduleDetails.singular}Saved);
-  })
-  .catch(err => {
-    return res.status(500).json({
-      "message": "Internal error",
-      "errors": err
-    });
-  });
-}
-
-exports.get${moduleDetails.pluralCamel} = (req, res) => {
-  ${moduleDetails.singularCamel}.find({})
-  .then(${moduleDetails.singular}List => {
-    return res.status(200).json(${moduleDetails.singular}List);
-  })
-  .catch(err => {
-    return res.status(500).json({
-      "message": "Internal error",
-      "errors": err
-    });
-  });
-}
-
-exports.update${moduleDetails.singularCamel} = (req, res) => {
-  ${moduleDetails.singularCamel}.update({ _id: res.locals.${moduleDetails.singular}_id }, res.locals.${moduleDetails.singular}, { safe: true })
-  .then(${moduleDetails.singular}Updated => {
-    return res.status(200).json({});
-  })
-  .catch(err => {
-    return res.status(500).json({
-      "message": "Internal error",
-      "errors": err
-    });
-  });
-}
-
-exports.get${moduleDetails.singularCamel} = (req, res) => {
-  ${moduleDetails.singularCamel}.findOne({ _id: res.locals.${moduleDetails.singular}_id }).exec()
-  .then(${moduleDetails.singular}Found => {
-    return res.status(200).json(${moduleDetails.singular}Found);
-  })
-  .catch(err => {
-    return res.status(500).json({
-      "message": "Internal error",
-      "errors": err
-    });
-  });
-}
-
-exports.remove${moduleDetails.singularCamel} = (req, res) => {
-  ${moduleDetails.singularCamel}.remove({ _id: res.locals.${moduleDetails.singular}_id })
-  .then(${moduleDetails.singular}Removed => {
-    return res.status(200).json({});
-  })
-  .catch(err => {
-    return res.satus(500).json({
-      "message": "Internal error",
-      "errors": err
-    });
-  });
-}`;
-  helperUtilities.makeFile(filePath, controllerData);
-}
 
 function generateRouterFile(filePath) {
   const routerData = `const express = require('express');
@@ -158,7 +71,7 @@ function addModuleToList() {
   });
 }
 
-function makeModuleFilesAndFolders() {
+function makeModuleFilesAndFolders(moduleDetails) {
   const moduleRoot = `${modulesDir}/${moduleDetails.plural}`;
   helperUtilities.makeFolder(`${moduleRoot}`);
   helperUtilities.makeFolder(`${moduleRoot}/config`);
@@ -168,11 +81,11 @@ function makeModuleFilesAndFolders() {
   helperUtilities.makeFolder(`${moduleRoot}/routes`);
   helperUtilities.makeFolder(`${moduleRoot}/docs`);
 
-  moduleUtilities.generateConfigFile(`${moduleRoot}/config/${moduleDetails.plural}.config.json`);
-  generateModelFile(`${moduleRoot}/models/${moduleDetails.plural}.server.model.js`);
-  generateControllerFile(`${moduleRoot}/controllers/${moduleDetails.plural}.server.controller.js`);
+  factory.generateConfigFile(`${moduleRoot}/config/${moduleDetails.plural}.config.json`, moduleDetails);
+  factory.generateModelFile(`${moduleRoot}/models/${moduleDetails.plural}.server.model.js`, moduleDetails);
+  factory.generateControllerFile(`${moduleRoot}/controllers/${moduleDetails.plural}.server.controller.js`, moduleDetails);
   generateValidaionFile(`${moduleRoot}/libraries/${moduleDetails.plural}.server.validation.js`);
-  moduleUtilities.generateSwaggerDocs(`${moduleRoot}/docs/${moduleDetails.plural}.docs.yaml`);
+  factory.generateSwaggerDocs(`${moduleRoot}/docs/${moduleDetails.plural}.docs.yaml`, moduleDetails);
   helperUtilities.makeFile(`${moduleRoot}/libraries/${moduleDetails.plural}.server.library.js`, '');
   generateRouterFile(`${moduleRoot}/routes/${moduleDetails.plural}.server.route.js`);
   addModuleToList();
@@ -262,7 +175,7 @@ else if (process.argv.length == 5 && process.argv[2] == 'module') {
   moduleDetails.singularCamel = moduleDetails.singular.charAt(0).toUpperCase() + moduleDetails.singular.slice(1);
   moduleDetails.pluralCamel = moduleDetails.plural.charAt(0).toUpperCase() + moduleDetails.plural.slice(1);
 
-  makeModuleFilesAndFolders();
+  makeModuleFilesAndFolders(moduleDetails);
 } 
 
 else if (process.argv.length == 3 && (process.argv[2] == 'help' || process.argv[2] == '--help' || process.argv[2] == 'h' || process.argv[2] == '-h')) {
