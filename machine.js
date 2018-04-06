@@ -95,7 +95,7 @@ exports.remove${moduleDetails.singularCamel} = (req, res) => {
     });
   });
 }`;
-  makeFile(filePath, controllerData);
+  helperUtilities.makeFile(filePath, controllerData);
 }
 
 function generateRouterFile(filePath) {
@@ -116,7 +116,7 @@ router.route('/:${moduleDetails.singular}_id')
 router.param('${moduleDetails.singular}_id', ${moduleDetails.singular}Controller.${moduleDetails.singular}byId)
 
 module.exports = router;`;
-  makeFile(filePath, routerData);
+  helperUtilities.makeFile(filePath, routerData);
 }
 
 function generateValidaionFile(filePath) {
@@ -139,7 +139,7 @@ exports.validateInsert${moduleDetails.singularCamel} = function (req, res, next)
     }
   });
 }`;
-  makeFile(filePath, validationFileData);
+  helperUtilities.makeFile(filePath, validationFileData);
 }
 
 function addModuleToList() {
@@ -153,67 +153,67 @@ function addModuleToList() {
     if (err) throw err;
     const modulesList = JSON.parse(content);
     modulesList.push(moduleDataItem);
-    makeFile(modulesListPath, JSON.stringify(modulesList, null, 2));
+    helperUtilities.makeFile(modulesListPath, JSON.stringify(modulesList, null, 2));
     console.log('Module added to modulesListPath');
   });
 }
 
 function makeModuleFilesAndFolders() {
   const moduleRoot = `${modulesDir}/${moduleDetails.plural}`;
-  makeFolder(`${moduleRoot}`);
-  makeFolder(`${moduleRoot}/config`);
-  makeFolder(`${moduleRoot}/controllers`);
-  makeFolder(`${moduleRoot}/libraries`);
-  makeFolder(`${moduleRoot}/models`);
-  makeFolder(`${moduleRoot}/routes`);
-  makeFolder(`${moduleRoot}/docs`);
+  helperUtilities.makeFolder(`${moduleRoot}`);
+  helperUtilities.makeFolder(`${moduleRoot}/config`);
+  helperUtilities.makeFolder(`${moduleRoot}/controllers`);
+  helperUtilities.makeFolder(`${moduleRoot}/libraries`);
+  helperUtilities.makeFolder(`${moduleRoot}/models`);
+  helperUtilities.makeFolder(`${moduleRoot}/routes`);
+  helperUtilities.makeFolder(`${moduleRoot}/docs`);
 
-  generateConfigFile(`${moduleRoot}/config/${moduleDetails.plural}.config.json`);
+  moduleUtilities.generateConfigFile(`${moduleRoot}/config/${moduleDetails.plural}.config.json`);
   generateModelFile(`${moduleRoot}/models/${moduleDetails.plural}.server.model.js`);
   generateControllerFile(`${moduleRoot}/controllers/${moduleDetails.plural}.server.controller.js`);
   generateValidaionFile(`${moduleRoot}/libraries/${moduleDetails.plural}.server.validation.js`);
-  generateSwaggerDocs(`${moduleRoot}/docs/${moduleDetails.plural}.docs.yaml`);
-  makeFile(`${moduleRoot}/libraries/${moduleDetails.plural}.server.library.js`, '');
+  moduleUtilities.generateSwaggerDocs(`${moduleRoot}/docs/${moduleDetails.plural}.docs.yaml`);
+  helperUtilities.makeFile(`${moduleRoot}/libraries/${moduleDetails.plural}.server.library.js`, '');
   generateRouterFile(`${moduleRoot}/routes/${moduleDetails.plural}.server.route.js`);
   addModuleToList();
 }
 
 function makePackageJsonFile() {
-  githubDownload(`${appFolder}/package.json`, 'blackfire-package.json');
+  helperUtilities.githubDownload(`${appFolder}/package.json`, 'blackfire-package.json');
 }
 
 function makeGitIgnoreFile() {
-  githubDownload(`${appFolder}/.gitignore`, '.gitignore');
+  helperUtilities.githubDownload(`${appFolder}/.gitignore`, '.gitignore');
 }
 
 function makeServerJsFile() {
-  githubDownload(`${appFolder}/server.js`, 'server.js');
+  helperUtilities.githubDownload(`${appFolder}/server.js`, 'server.js');
 }
 
 function makeExpressJsFile() {
-  makeFolder(`${appFolder}/config`);
-  githubDownload(`${appFolder}/config/express.js`, 'config/express.js');
+  helperUtilities.makeFolder(`${appFolder}/config`);
+  helperUtilities.githubDownload(`${appFolder}/config/express.js`, 'config/express.js');
 }
 
 function makeModulesJsFile() {
-  makeFolder(`${appFolder}/config`);
-  githubDownload(`${appFolder}/config/modules.js`, 'config/modules.js');
+  helperUtilities.makeFolder(`${appFolder}/config`);
+  helperUtilities.githubDownload(`${appFolder}/config/modules.js`, 'config/modules.js');
 }
 
 function makeModulesJsonFile() {
   const modulesJsonFileData = '[]';
-  makeFolder(`${appFolder}/config`);
-  makeFile(`${appFolder}/config/modules.json`, modulesJsonFileData);
+  helperUtilities.makeFolder(`${appFolder}/config`);
+  helperUtilities.makeFile(`${appFolder}/config/modules.json`, modulesJsonFileData);
 }
 
 function makeMongooseJsFile() {
-  makeFolder(`${appFolder}/config`);
-  githubDownload(`${appFolder}/config/mongoose.js`, 'config/mongoose.js');
+  helperUtilities.makeFolder(`${appFolder}/config`);
+  helperUtilities.githubDownload(`${appFolder}/config/mongoose.js`, 'config/mongoose.js');
 }
 
 function makeSwaggerJsFile() {
-  makeFolder(`${appFolder}/config`);
-  githubDownload(`${appFolder}/config/swagger.js`, 'config/swagger.js');
+  helperUtilities.makeFolder(`${appFolder}/config`);
+  helperUtilities.githubDownload(`${appFolder}/config/swagger.js`, 'config/swagger.js');
 }
 
 function makeEnvFiles() {
@@ -226,23 +226,23 @@ function makeEnvFiles() {
     "host": "localhost"
   }
 }`;
-  makeFolder(`${appFolder}/config`);
-  makeFolder(`${appFolder}/config/env`);
-  makeFile(`${appFolder}/config/env/development.json`, envData);
-  makeFile(`${appFolder}/config/env/production.json`, envData);
-  makeFile(`${appFolder}/config/env/default.json`, envData);
+  helperUtilities.makeFolder(`${appFolder}/config`);
+  helperUtilities.makeFolder(`${appFolder}/config/env`);
+  helperUtilities.makeFile(`${appFolder}/config/env/development.json`, envData);
+  helperUtilities.makeFile(`${appFolder}/config/env/production.json`, envData);
+  helperUtilities.makeFile(`${appFolder}/config/env/default.json`, envData);
 }
 
 
 function makeEnvIndexJsFile() {
-  makeFolder(`${appFolder}/config`);
-  makeFolder(`${appFolder}/config/env`);
-  githubDownload(`${appFolder}/config/env/index.js`, 'config/env/index.js');
+  helperUtilities.makeFolder(`${appFolder}/config`);
+  helperUtilities.makeFolder(`${appFolder}/config/env`);
+  helperUtilities.githubDownload(`${appFolder}/config/env/index.js`, 'config/env/index.js');
 }
 
 if (process.argv.length == 4 && process.argv[2] == 'new') {
   appFolder = process.argv[3];
-  makeFolder(appFolder);
+  helperUtilities.makeFolder(appFolder);
   makeServerJsFile();
   makePackageJsonFile();
   makeGitIgnoreFile();
@@ -253,7 +253,7 @@ if (process.argv.length == 4 && process.argv[2] == 'new') {
   makeModulesJsFile();
   makeEnvFiles();
   makeEnvIndexJsFile();
-  makeFolder(`${appFolder}/app`);
+  helperUtilities.makeFolder(`${appFolder}/app`);
 }
 
 else if (process.argv.length == 5 && process.argv[2] == 'module') {
