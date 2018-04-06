@@ -8,7 +8,7 @@ const options = {
       version: '1.0.0',
       description: '',
     },
-    host: `${config.app.swagger}`,
+    host: `${config.app.host}:${config.app.port}`,
   },
   apis: ['**/*.docs.yaml'],
 };
