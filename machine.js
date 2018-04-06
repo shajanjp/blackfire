@@ -9,25 +9,6 @@ const githubRoot = 'https://github.com/shajanjp/blackfire/raw/master/';
 const moduleDetails = {};
 let appFolder;
 
-if (process.argv.length == 3 && (process.argv[2] == 'help' || process.argv[2] == '--help' || process.argv[2] == 'h' || process.argv[2] == '-h')) {
-  console.log(`
-Usage: blackfire <command>
-
-where <command> is one of:
-    new, module, remove, status, report
-
-blackfire help <term>  search for help on <term>
-blackfire <cmd> -h     quick help on <cmd>
-blackfire new foo     creates an application foo
-blackfire module <singular> <plural>     adds module cats
-  eg : blackfire module cat cats
-  
-Config info can be viewed via: blackfire help config
-
-blackfire@0.0.24
-`);
-}
-
 function generateSwaggerDocs(filePath){
   let swaggerFileData = `securityDefinitions:
   Bearer:
@@ -127,35 +108,7 @@ tags:
       required: true
       description: ${moduleDetails.singularCamel} ID
 `;
-makeFile(filePath, swaggerFileData);
-}
-
-if (process.argv.length == 4 && process.argv[2] == 'new') {
-  appFolder = process.argv[3];
-  makeFolder(appFolder);
-  makeServerJsFile();
-  makePackageJsonFile();
-  makeGitIgnoreFile();
-  makeExpressJsFile();
-  makeMongooseJsFile();
-  makeSwaggerJsFile();
-  makeModulesJsonFile();
-  makeModulesJsFile();
-  makeEnvFiles();
-  makeEnvIndexJsFile();
-  makeFolder(`${appFolder}/app`);
-}
-
-if (process.argv.length == 5 && process.argv[2] == 'module') {
-  moduleDetails.singular = process.argv[3];
-  moduleDetails.plural = process.argv[4];
-  moduleDetails.singularCamel = moduleDetails.singular.charAt(0).toUpperCase() + moduleDetails.singular.slice(1);
-  moduleDetails.pluralCamel = moduleDetails.plural.charAt(0).toUpperCase() + moduleDetails.plural.slice(1);
-
-  makeModuleFilesAndFolders();
-} else {
-  console.log('Error in usage.');
-  console.log('Usage: blackfire "cars" "car" "cars"');
+  makeFile(filePath, swaggerFileData);
 }
 
 function githubDownload(localFile, remoteFile) {
@@ -387,18 +340,15 @@ function makeServerJsFile() {
   githubDownload(`${appFolder}/server.js`, 'server.js');
 }
 
-
 function makeExpressJsFile() {
   makeFolder(`${appFolder}/config`);
   githubDownload(`${appFolder}/config/express.js`, 'config/express.js');
 }
 
-
 function makeModulesJsFile() {
   makeFolder(`${appFolder}/config`);
   githubDownload(`${appFolder}/config/modules.js`, 'config/modules.js');
 }
-
 
 function makeModulesJsonFile() {
   const modulesJsonFileData = '[]';
@@ -438,4 +388,53 @@ function makeEnvIndexJsFile() {
   makeFolder(`${appFolder}/config`);
   makeFolder(`${appFolder}/config/env`);
   githubDownload(`${appFolder}/config/env/index.js`, 'config/env/index.js');
+}
+
+if (process.argv.length == 4 && process.argv[2] == 'new') {
+  appFolder = process.argv[3];
+  makeFolder(appFolder);
+  makeServerJsFile();
+  makePackageJsonFile();
+  makeGitIgnoreFile();
+  makeExpressJsFile();
+  makeMongooseJsFile();
+  makeSwaggerJsFile();
+  makeModulesJsonFile();
+  makeModulesJsFile();
+  makeEnvFiles();
+  makeEnvIndexJsFile();
+  makeFolder(`${appFolder}/app`);
+}
+
+else if (process.argv.length == 5 && process.argv[2] == 'module') {
+  moduleDetails.singular = process.argv[3];
+  moduleDetails.plural = process.argv[4];
+  moduleDetails.singularCamel = moduleDetails.singular.charAt(0).toUpperCase() + moduleDetails.singular.slice(1);
+  moduleDetails.pluralCamel = moduleDetails.plural.charAt(0).toUpperCase() + moduleDetails.plural.slice(1);
+
+  makeModuleFilesAndFolders();
+} 
+
+else if (process.argv.length == 3 && (process.argv[2] == 'help' || process.argv[2] == '--help' || process.argv[2] == 'h' || process.argv[2] == '-h')) {
+  console.log(`
+Usage: blackfire <command>
+
+where <command> is one of:
+    new, module, remove, status, report
+
+blackfire help <term>  search for help on <term>
+blackfire <cmd> -h     quick help on <cmd>
+blackfire new foo     creates an application foo
+blackfire module <singular> <plural>     adds module cats
+  eg : blackfire module cat cats
+  
+Config info can be viewed via: blackfire help config
+
+blackfire@0.0.24
+`);
+}
+
+else {
+  console.log('Error in usage.');
+  console.log('Usage: blackfire "cars" "car" "cars"');
 }
