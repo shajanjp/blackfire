@@ -31,9 +31,15 @@ tags:
         description: Success
     parameters:
     - in: body
-      name: title
-      description: Restaurent title
-      example: EXAMPLE_RESTAURANT_TITLE
+      name: Body
+      required: true
+      schema:
+        type: object
+        properties:
+          title:
+            type: string
+            example: EXAMPLE
+            required: true
   get:
     summary: List ${moduleDetails.plural}
     description: List ${moduleDetails.plural}
