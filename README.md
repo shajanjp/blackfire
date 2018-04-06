@@ -19,7 +19,8 @@ npm install
 ```
 
 ## Create module
-Now lets get into serious stuff, what kind of API are you making? stores? products? or even animals? Its easy to make modules in blackfire. blackfire module <singular> <plural>
+Now lets get into serious stuff, what kind of API are you making? stores? products? or even animals? Its easy to make modules in blackfire. 
+blackfire module `<singular>` `<plural>`
 ```bash
 blackfire module cat cats
 ```
