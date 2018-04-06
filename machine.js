@@ -11,27 +11,6 @@ let appFolder;
 const factory = require("./utilities/factory.js");
 const helperUtilities = require("./utilities/lib.generator.js");
 
-function generateRouterFile(filePath) {
-  const routerData = `const express = require('express');
-const router = express.Router();
-const ${moduleDetails.singular}Controller = require('../controllers/${moduleDetails.plural}.server.controller.js');
-const ${moduleDetails.singular}Validator = require('../libraries/${moduleDetails.plural}.server.validation.js');
-
-router.route('/')
-.post(${moduleDetails.singular}Validator.validateInsert${moduleDetails.singularCamel}, ${moduleDetails.singular}Controller.insert${moduleDetails.singularCamel})
-.get(${moduleDetails.singular}Controller.get${moduleDetails.pluralCamel});
-
-router.route('/:${moduleDetails.singular}_id')
-.put(${moduleDetails.singular}Validator.validateInsert${moduleDetails.singularCamel}, ${moduleDetails.singular}Controller.update${moduleDetails.singularCamel})
-.get(${moduleDetails.singular}Controller.get${moduleDetails.singularCamel})
-.delete(${moduleDetails.singular}Controller.remove${moduleDetails.singularCamel})
-
-router.param('${moduleDetails.singular}_id', ${moduleDetails.singular}Controller.${moduleDetails.singular}byId)
-
-module.exports = router;`;
-  helperUtilities.makeFile(filePath, routerData);
-}
-
 function generateValidaionFile(filePath) {
   const validationFileData = `const joi = require('joi');
 const mongoId = joi.string().length(24);
@@ -87,7 +66,7 @@ function makeModuleFilesAndFolders(moduleDetails) {
   generateValidaionFile(`${moduleRoot}/libraries/${moduleDetails.plural}.server.validation.js`);
   factory.generateSwaggerDocs(`${moduleRoot}/docs/${moduleDetails.plural}.docs.yaml`, moduleDetails);
   helperUtilities.makeFile(`${moduleRoot}/libraries/${moduleDetails.plural}.server.library.js`, '');
-  generateRouterFile(`${moduleRoot}/routes/${moduleDetails.plural}.server.route.js`);
+  factory.generateRouterFile(`${moduleRoot}/routes/${moduleDetails.plural}.server.route.js`, moduleDetails);
   addModuleToList();
 }
 
