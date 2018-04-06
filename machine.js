@@ -6,27 +6,10 @@ const modulesListPath = 'config/modules.json';
 const { https } = require('follow-redirects');
 const githubRoot = 'https://github.com/shajanjp/blackfire/raw/master/';
 const moduleDetails = {};
-let appFolder;
 
+const framework = require("./utilities/framework.library.js");
 const factory = require("./utilities/factory.js");
 const helperUtilities = require("./utilities/lib.generator.js");
-
-
-function addModuleToList() {
-  const moduleDataItem = {
-    name: moduleDetails.plural,
-    title: moduleDetails.pluralCamel,
-    root: `/${moduleDetails.plural}`,
-  };
-
-  fs.readFile(modulesListPath, 'utf8', (err, content) => {
-    if (err) throw err;
-    const modulesList = JSON.parse(content);
-    modulesList.push(moduleDataItem);
-    helperUtilities.makeFile(modulesListPath, JSON.stringify(modulesList, null, 2));
-    console.log('Module added to modulesListPath');
-  });
-}
 
 function makeModuleFilesAndFolders(moduleDetails) {
   const moduleRoot = `${modulesDir}/${moduleDetails.plural}`;
@@ -41,88 +24,27 @@ function makeModuleFilesAndFolders(moduleDetails) {
   factory.generateConfigFile(`${moduleRoot}/config/${moduleDetails.plural}.config.json`, moduleDetails);
   factory.generateModelFile(`${moduleRoot}/models/${moduleDetails.plural}.server.model.js`, moduleDetails);
   factory.generateControllerFile(`${moduleRoot}/controllers/${moduleDetails.plural}.server.controller.js`, moduleDetails);
-  generateValidaionFile(`${moduleRoot}/libraries/${moduleDetails.plural}.server.validation.js`);
+  factory.generateValidaionFile(`${moduleRoot}/libraries/${moduleDetails.plural}.server.validation.js`, moduleDetails);
   factory.generateSwaggerDocs(`${moduleRoot}/docs/${moduleDetails.plural}.docs.yaml`, moduleDetails);
   helperUtilities.makeFile(`${moduleRoot}/libraries/${moduleDetails.plural}.server.library.js`, '');
   factory.generateRouterFile(`${moduleRoot}/routes/${moduleDetails.plural}.server.route.js`, moduleDetails);
-  addModuleToList();
+  framework.addModuleToList(moduleDetails);
 }
 
-function makePackageJsonFile() {
-  helperUtilities.githubDownload(`${appFolder}/package.json`, 'blackfire-package.json');
-}
-
-function makeGitIgnoreFile() {
-  helperUtilities.githubDownload(`${appFolder}/.gitignore`, '.gitignore');
-}
-
-function makeServerJsFile() {
-  helperUtilities.githubDownload(`${appFolder}/server.js`, 'server.js');
-}
-
-function makeExpressJsFile() {
-  helperUtilities.makeFolder(`${appFolder}/config`);
-  helperUtilities.githubDownload(`${appFolder}/config/express.js`, 'config/express.js');
-}
-
-function makeModulesJsFile() {
-  helperUtilities.makeFolder(`${appFolder}/config`);
-  helperUtilities.githubDownload(`${appFolder}/config/modules.js`, 'config/modules.js');
-}
-
-function makeModulesJsonFile() {
-  const modulesJsonFileData = '[]';
-  helperUtilities.makeFolder(`${appFolder}/config`);
-  helperUtilities.makeFile(`${appFolder}/config/modules.json`, modulesJsonFileData);
-}
-
-function makeMongooseJsFile() {
-  helperUtilities.makeFolder(`${appFolder}/config`);
-  helperUtilities.githubDownload(`${appFolder}/config/mongoose.js`, 'config/mongoose.js');
-}
-
-function makeSwaggerJsFile() {
-  helperUtilities.makeFolder(`${appFolder}/config`);
-  helperUtilities.githubDownload(`${appFolder}/config/swagger.js`, 'config/swagger.js');
-}
-
-function makeEnvFiles() {
-  const envData = `{
-  "db": {
-    "url": "mongodb://localhost/blackfiredb"
-  },
-  "app" : {
-    "port": 3000,
-    "host": "localhost"
-  }
-}`;
-  helperUtilities.makeFolder(`${appFolder}/config`);
-  helperUtilities.makeFolder(`${appFolder}/config/env`);
-  helperUtilities.makeFile(`${appFolder}/config/env/development.json`, envData);
-  helperUtilities.makeFile(`${appFolder}/config/env/production.json`, envData);
-  helperUtilities.makeFile(`${appFolder}/config/env/default.json`, envData);
-}
-
-
-function makeEnvIndexJsFile() {
-  helperUtilities.makeFolder(`${appFolder}/config`);
-  helperUtilities.makeFolder(`${appFolder}/config/env`);
-  helperUtilities.githubDownload(`${appFolder}/config/env/index.js`, 'config/env/index.js');
-}
 
 if (process.argv.length == 4 && process.argv[2] == 'new') {
   appFolder = process.argv[3];
   helperUtilities.makeFolder(appFolder);
-  makeServerJsFile();
-  makePackageJsonFile();
-  makeGitIgnoreFile();
-  makeExpressJsFile();
-  makeMongooseJsFile();
-  makeSwaggerJsFile();
-  makeModulesJsonFile();
-  makeModulesJsFile();
-  makeEnvFiles();
-  makeEnvIndexJsFile();
+  framework.makeServerJsFile(appFolder);
+  framework.makePackageJsonFile(appFolder);
+  framework.makeGitIgnoreFile(appFolder);
+  framework.makeExpressJsFile(appFolder);
+  framework.makeMongooseJsFile(appFolder);
+  framework.makeSwaggerJsFile(appFolder);
+  framework.makeModulesJsonFile(appFolder);
+  framework.makeModulesJsFile(appFolder);
+  framework.makeEnvFiles(appFolder);
+  framework.makeEnvIndexJsFile(appFolder);
   helperUtilities.makeFolder(`${appFolder}/app`);
 }
 
