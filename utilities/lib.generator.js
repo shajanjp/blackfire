@@ -1,3 +1,7 @@
+const fs = require('fs');
+const { https } = require('follow-redirects');
+const githubRoot = 'https://github.com/shajanjp/blackfire/raw/master/';
+
 function makeFolder(folderPath) {
   if (!fs.existsSync(folderPath)) {
     fs.mkdirSync(folderPath);
