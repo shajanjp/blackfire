@@ -1,4 +1,4 @@
-const helperUtilities = require("./lib.generator.js");
+const helperUtilities = require('./lib.generator.js');
 
 module.exports = function(filePath, moduleDetails) {
   const routerData = `const express = require('express');
@@ -19,4 +19,4 @@ router.param('${moduleDetails.singular}_id', ${moduleDetails.singular}Controller
 
 module.exports = router;`;
   helperUtilities.makeFile(filePath, routerData);
-}
+};

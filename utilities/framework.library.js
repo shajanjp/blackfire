@@ -1,5 +1,5 @@
-const fs = require("fs");
-const helperUtilities = require("./lib.generator.js");
+const fs = require('fs');
+const helperUtilities = require('./lib.generator.js');
 const modulesListPath = 'config/modules.json';
 
 function addModuleToList(moduleDetails) {
@@ -91,4 +91,4 @@ module.exports = {
   makeSwaggerJsFile,
   makeEnvFiles,
   makeEnvIndexJsFile,
-}
+};

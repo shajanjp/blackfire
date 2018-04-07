@@ -1,15 +1,10 @@
 #!/usr/bin/env node
-const fs = require('fs');
-
 const modulesDir = 'app';
-const modulesListPath = 'config/modules.json';
-const { https } = require('follow-redirects');
-const githubRoot = 'https://github.com/shajanjp/blackfire/raw/master/';
 const moduleDetails = {};
 
-const framework = require("./utilities/framework.library.js");
-const factory = require("./utilities/factory.js");
-const helperUtilities = require("./utilities/lib.generator.js");
+const framework = require('./utilities/framework.library.js');
+const factory = require('./utilities/factory.js');
+const helperUtilities = require('./utilities/lib.generator.js');
 
 function makeModuleFilesAndFolders(moduleDetails) {
   const moduleRoot = `${modulesDir}/${moduleDetails.plural}`;
@@ -46,18 +41,14 @@ if (process.argv.length == 4 && process.argv[2] == 'new') {
   framework.makeEnvFiles(appFolder);
   framework.makeEnvIndexJsFile(appFolder);
   helperUtilities.makeFolder(`${appFolder}/app`);
-}
-
-else if (process.argv.length == 5 && process.argv[2] == 'module') {
+} else if (process.argv.length == 5 && process.argv[2] == 'module') {
   moduleDetails.singular = process.argv[3];
   moduleDetails.plural = process.argv[4];
   moduleDetails.singularCamel = moduleDetails.singular.charAt(0).toUpperCase() + moduleDetails.singular.slice(1);
   moduleDetails.pluralCamel = moduleDetails.plural.charAt(0).toUpperCase() + moduleDetails.plural.slice(1);
 
   makeModuleFilesAndFolders(moduleDetails);
-} 
-
-else if (process.argv.length == 3 && (process.argv[2] == 'help' || process.argv[2] == '--help' || process.argv[2] == 'h' || process.argv[2] == '-h')) {
+} else if (process.argv.length == 3 && (process.argv[2] == 'help' || process.argv[2] == '--help' || process.argv[2] == 'h' || process.argv[2] == '-h')) {
   console.log(`
 Usage: blackfire <command>
 
@@ -74,9 +65,7 @@ Config info can be viewed via: blackfire help config
 
 blackfire@0.0.24
 `);
-}
-
-else {
+} else {
   console.log('Error in usage.');
   console.log('Usage: blackfire "cars" "car" "cars"');
 }

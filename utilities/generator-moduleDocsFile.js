@@ -1,4 +1,4 @@
-const helperUtilities = require("./lib.generator.js");
+const helperUtilities = require('./lib.generator.js');
 
 module.exports = function(filePath, moduleDetails) {
   let swaggerFileData = `securityDefinitions:
@@ -106,4 +106,4 @@ tags:
       description: ${moduleDetails.singularCamel} ID
 `;
   helperUtilities.makeFile(filePath, swaggerFileData);
-}
+};

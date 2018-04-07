@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { https } = require('follow-redirects');
+const {https} = require('follow-redirects');
 const githubRoot = 'https://github.com/shajanjp/blackfire/raw/master/';
 
 function makeFolder(folderPath) {
@@ -20,7 +20,11 @@ function githubDownload(localFile, remoteFile) {
   https.get(`${githubRoot}${remoteFile}`, (response) => {
     response.on('data', (data) => {
       fs.writeFile(localFile, data, 'utf8', (err) => {
-        if (!err) { console.log(`create ${localFile}`); } else { console.error(`couldn't download ${localFile}`); }
+        if (!err) {
+ console.log(`create ${localFile}`);
+} else {
+ console.error(`couldn't download ${localFile}`);
+}
       });
     });
   })
@@ -30,7 +34,7 @@ function githubDownload(localFile, remoteFile) {
 }
 
 module.exports = {
-	makeFile,
-	makeFolder,
-	githubDownload
-}
+  makeFile,
+  makeFolder,
+  githubDownload,
+};

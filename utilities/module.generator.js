@@ -1,4 +1,4 @@
-const helperUtilities = require("../utilities/lib.generator.js");
+const helperUtilities = require('../utilities/lib.generator.js');
 
 function generateModelFile(filePath, moduleDetails) {
   const modelFileData = `const mongoose = require('mongoose');
@@ -15,4 +15,4 @@ mongoose.model('${moduleDetails.singular}', ${moduleDetails.singular}Schema);`;
 
 module.exports = {
   generateModelFile,
-}
+};

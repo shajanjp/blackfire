@@ -1,4 +1,4 @@
-const helperUtilities = require("./lib.generator.js");
+const helperUtilities = require('./lib.generator.js');
 
 module.exports = function(filePath, moduleDetails) {
   const controllerData = `const ${moduleDetails.singularCamel} = require('mongoose').model('${moduleDetails.singular}');
@@ -84,4 +84,4 @@ exports.remove${moduleDetails.singularCamel} = (req, res) => {
   });
 }`;
   helperUtilities.makeFile(filePath, controllerData);
-}
+};

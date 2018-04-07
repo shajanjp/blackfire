@@ -1,4 +1,4 @@
-const helperUtilities = require("./lib.generator.js");
+const helperUtilities = require('./lib.generator.js');
 
 module.exports = function(filePath, moduleDetails) {
   const validationFileData = `const joi = require('joi');
@@ -21,4 +21,4 @@ exports.validateInsert${moduleDetails.singularCamel} = function (req, res, next)
   });
 }`;
   helperUtilities.makeFile(filePath, validationFileData);
-}
+};

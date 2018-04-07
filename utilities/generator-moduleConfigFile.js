@@ -1,4 +1,4 @@
-const helperUtilities = require("./lib.generator.js");
+const helperUtilities = require('./lib.generator.js');
 
 module.exports = function(filePath, moduleDetails) {
   const configData = `{
@@ -10,4 +10,4 @@ module.exports = function(filePath, moduleDetails) {
   "root": "/${moduleDetails.plural}"
 }`;
   helperUtilities.makeFile(filePath, configData);
-}
+};
