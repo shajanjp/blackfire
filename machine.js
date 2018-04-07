@@ -67,5 +67,6 @@ blackfire@0.0.24
 `);
 } else {
   console.log('Error in usage.');
-  console.log('Usage: blackfire "cars" "car" "cars"');
+  console.log('Usage: blackfire new <myapp>');
+  console.log('Usage: blackfire module <cat> <cats>');
 }
