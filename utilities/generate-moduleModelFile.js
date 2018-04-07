@@ -1,4 +1,5 @@
-const helperUtilities = require('../utilities/lib.generator.js');
+const helperUtilities = require('./lib.generator.js');
+const generateMongooseSchema = require('./model-generateMongooseSchema.js');
 
 module.exports = function(filePath, moduleDetails) {
   const modelFileData = `const mongoose = require('mongoose');
