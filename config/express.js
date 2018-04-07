@@ -5,11 +5,11 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const activeModules = require('./modules.js').activeModules;
 
-const mainRoutes = express.Router();
+const mainRoutes = express.Router(); // eslint-disable-line new-cap
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.js');
 
-module.exports = function () {
+module.exports = function() {
   const app = express();
 
   if (process.env.NODE_ENV === 'development') {

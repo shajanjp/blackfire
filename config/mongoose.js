@@ -7,7 +7,7 @@ const activeModules = require('./modules.js').activeModules;
 
 let moduleModels;
 
-module.exports = function () {
+module.exports = function() {
   const db = mongoose.connect(config.db.url, {
     useMongoClient: true,
   });
