@@ -5,9 +5,7 @@ module.exports = function(filePath, moduleDetails) {
   const modelFileData = `const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-let ${moduleDetails.singular}Schema = new Schema({
-  title: String
-});
+let ${moduleDetails.singular}Schema = new Schema(${ generateMongooseSchema(moduleDetails.modelData) });
 
 mongoose.model('${moduleDetails.singular}', ${moduleDetails.singular}Schema);`;
   helperUtilities.makeFile(filePath, modelFileData);
