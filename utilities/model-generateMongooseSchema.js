@@ -43,7 +43,7 @@ function makeKeyType(schemaDataP, key) {
     Object.keys(schemaDataP[key]).forEach(keyIn => {
       tempObject += makeKeyType(schemaDataP[key], keyIn);
     });
-    tempObject += '\n  }';
+    tempObject += '\n  },';
     return tempObject;
   }
 
@@ -53,7 +53,7 @@ function makeKeyType(schemaDataP, key) {
     Object.keys(schemaDataP[key][0]).forEach(keyIn => {
       tempObject += makeKeyType(schemaDataP[key][0], keyIn);
     });
-    tempObject += '\n }]';
+    tempObject += '\n }],';
     return tempObject;
   }
 }
