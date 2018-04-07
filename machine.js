@@ -57,7 +57,8 @@ where <command> is one of:
 
 blackfire help <term>  search for help on <term>
 blackfire <cmd> -h     quick help on <cmd>
-blackfire new foo     creates an application foo
+blackfire new <app name>     creates an application foo
+  eg : blackfire new myApp
 blackfire module <singular> <plural>     adds module cats
   eg : blackfire module cat cats
   
@@ -67,6 +68,6 @@ blackfire@0.0.24
 `);
 } else {
   console.log('Error in usage.');
-  console.log('Usage: blackfire new <myapp>');
-  console.log('Usage: blackfire module <cat> <cats>');
+  console.log('Usage: blackfire new <app name>');
+  console.log('Usage: blackfire module <module singular> <module plural>');
 }
