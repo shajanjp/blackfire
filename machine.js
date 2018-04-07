@@ -1,10 +1,15 @@
 #!/usr/bin/env node
+const fs = require('fs');
 const modulesDir = 'app';
 const moduleDetails = {};
+moduleDetails.modelData = {
+  "title": "String"
+};
 
 const framework = require('./utilities/framework.library.js');
 const factory = require('./utilities/factory.js');
 const helperUtilities = require('./utilities/lib.generator.js');
+
 
 function makeModuleFilesAndFolders(moduleDetails) {
   const moduleRoot = `${modulesDir}/${moduleDetails.plural}`;
@@ -41,14 +46,20 @@ if (process.argv.length == 4 && process.argv[2] == 'new') {
   framework.makeEnvFiles(appFolder);
   framework.makeEnvIndexJsFile(appFolder);
   helperUtilities.makeFolder(`${appFolder}/app`);
-} else if (process.argv.length == 5 && process.argv[2] == 'module') {
+} 
+else if (process.argv.length >= 5 && process.argv[2] == 'module') {
+  if(process.argv[5] == "--model" && process.argv[6])
+    fs.readFile(process.argv[6], 'utf8', (err, content) => {
+      moduleDetails.modelData = JSON.parse(content);
   moduleDetails.singular = process.argv[3];
   moduleDetails.plural = process.argv[4];
   moduleDetails.singularCamel = moduleDetails.singular.charAt(0).toUpperCase() + moduleDetails.singular.slice(1);
   moduleDetails.pluralCamel = moduleDetails.plural.charAt(0).toUpperCase() + moduleDetails.plural.slice(1);
 
   makeModuleFilesAndFolders(moduleDetails);
-} else if (process.argv.length == 3 && (process.argv[2] == 'help' || process.argv[2] == '--help' || process.argv[2] == 'h' || process.argv[2] == '-h')) {
+    });
+} 
+else if (process.argv.length == 3 && (process.argv[2] == 'help' || process.argv[2] == '--help' || process.argv[2] == 'h' || process.argv[2] == '-h')) {
   console.log(`
 Usage: blackfire <command>
 
