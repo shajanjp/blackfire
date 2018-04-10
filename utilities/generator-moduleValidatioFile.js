@@ -1,11 +1,13 @@
 const helperUtilities = require('./lib.generator.js');
+const generateValidationSchema = require('./model-generateValidationSchema.js');
+
 
 module.exports = function(filePath, moduleDetails) {
   const validationFileData = `const joi = require('joi');
 const mongoId = joi.string().length(24);
 
 const ${moduleDetails.singular}InsertSchema = joi.object().keys({
-  title: joi.string().max(8).required()
+  ${ generateValidationSchema(moduleDetails.modelData) }
 });
 
 exports.validateInsert${moduleDetails.singularCamel} = function (req, res, next) {

@@ -31,7 +31,7 @@ function makeModuleFilesAndFolders(moduleDetails) {
   framework.addModuleToList(moduleDetails);
 }
 
-
+// > blackfire new
 if (process.argv.length == 4 && process.argv[2] == 'new') {
   appFolder = process.argv[3];
   helperUtilities.makeFolder(appFolder);
@@ -47,18 +47,30 @@ if (process.argv.length == 4 && process.argv[2] == 'new') {
   framework.makeEnvIndexJsFile(appFolder);
   helperUtilities.makeFolder(`${appFolder}/app`);
 } 
+  // blackfire module generation
 else if (process.argv.length >= 5 && process.argv[2] == 'module') {
-  if(process.argv[5] == "--model" && process.argv[6])
-    fs.readFile(process.argv[6], 'utf8', (err, content) => {
-      moduleDetails.modelData = JSON.parse(content);
   moduleDetails.singular = process.argv[3];
   moduleDetails.plural = process.argv[4];
   moduleDetails.singularCamel = moduleDetails.singular.charAt(0).toUpperCase() + moduleDetails.singular.slice(1);
   moduleDetails.pluralCamel = moduleDetails.plural.charAt(0).toUpperCase() + moduleDetails.plural.slice(1);
+  
+  // > blackfire module cat cats --model cats-schema.json 
+  if(process.argv[5] == "--model" && process.argv[6]){
+    fs.readFile(process.argv[6], 'utf8', (err, content) => {
+      moduleDetails.modelData = JSON.parse(content);
 
-  makeModuleFilesAndFolders(moduleDetails);
+      makeModuleFilesAndFolders(moduleDetails);
     });
+  }
+  
+  // > blackfire module cat cats
+  else {
+      moduleDetails.modelData = { "title": "string" };    
+      makeModuleFilesAndFolders(moduleDetails);
+  }
 } 
+
+  // > blackfire help
 else if (process.argv.length == 3 && (process.argv[2] == 'help' || process.argv[2] == '--help' || process.argv[2] == 'h' || process.argv[2] == '-h')) {
   console.log(`
 Usage: blackfire <command>
