@@ -40,7 +40,7 @@ function makeKeyType(schemaDataP, key) {
   // passes {}
   if (schemaDataP[key].constructor === Object) {
     let tempObject = `\n  ${key}: {`;
-    Object.keys(schemaDataP[key]).forEach(keyIn => {
+    Object.keys(schemaDataP[key]).forEach((keyIn) => {
       tempObject += makeKeyType(schemaDataP[key], keyIn);
     });
     tempObject += '\n  },';
@@ -50,7 +50,7 @@ function makeKeyType(schemaDataP, key) {
   // passes [{}]
   if (schemaDataP[key].constructor === Array && schemaDataP[key][0].constructor === Object) {
     let tempObject = `\n  ${key}: [{`;
-    Object.keys(schemaDataP[key][0]).forEach(keyIn => {
+    Object.keys(schemaDataP[key][0]).forEach((keyIn) => {
       tempObject += makeKeyType(schemaDataP[key][0], keyIn);
     });
     tempObject += '\n }],';
@@ -62,7 +62,7 @@ module.exports = function(schemaJson) {
   let renderedSchema = '{';
   let schemaKeys = Object.keys(schemaJson);
 
-  schemaKeys.forEach(key => {
+  schemaKeys.forEach((key) => {
     renderedSchema += makeKeyType(schemaJson, key);
   });
 
