@@ -1,4 +1,5 @@
 const helperUtilities = require('./lib.generator.js');
+const generateSwaggerSchema = require('./model-generateSwaggerSchema.js');
 
 module.exports = function(filePath, moduleDetails) {
   let swaggerFileData = `securityDefinitions:
@@ -27,10 +28,7 @@ tags:
       schema:
         type: object
         properties:
-          title:
-            type: string
-            example: EXAMPLE
-            required: true
+${generateSwaggerSchema(moduleDetails.modelData)}
   get:
     summary: List ${moduleDetails.plural}
     description: List ${moduleDetails.plural}
@@ -83,10 +81,7 @@ tags:
       schema:
         type: object
         properties:
-          title:
-            type: string
-            example: EXAMPLE_TITLE
-            required: true
+${generateSwaggerSchema(moduleDetails.modelData)}
   delete:
     summary: Remove ${moduleDetails.singular}
     description: Remove specified ${moduleDetails.singular}

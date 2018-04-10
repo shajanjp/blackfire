@@ -5,7 +5,8 @@ function parseType(freeType) {
     case 'char':
     case 'varchar':
     case 'character':
-      return 'joi.string().allow(\'\').optional()';
+      return `\n            type: string
+            example: EXAMPLE`;
       break;
 
     case 'ObjectId':
@@ -13,7 +14,8 @@ function parseType(freeType) {
     case 'objectid':
     case 'mongoid':
     case 'mongoId':
-      return 'mongoId.optional()';
+      return `\n            type: string
+            example: 5ac7508ec5c8fa23b180c08b`;
       break;
 
     case 'number':
@@ -21,7 +23,8 @@ function parseType(freeType) {
     case 'integer':
     case 'Integer':
     case 'int':
-      return 'joi.number().optional()';
+      return `\n            type: number
+            example: 123`;
       break;
   }
 }
@@ -29,45 +32,44 @@ function parseType(freeType) {
 function makeKeyType(schemaDataP, key) {
   // passes string, number, date
   if (schemaDataP[key].constructor === String) {
-    return `\n  ${key}: ${parseType(schemaDataP[key])},`;
+    return `          ${key}: ${parseType(schemaDataP[key])}\n`;
   }
 
   // passes [String], [Number], [Date]
   if (schemaDataP[key].constructor === Array && schemaDataP[key][0].constructor === String) {
-    return `\n  ${key}: joi.array().items(${parseType(schemaDataP[key][0])}).optional().default([]),`;
+    return `          ${key}[0]: ${parseType(schemaDataP[key][0])}\n`;
   }
 
   // passes {}
   if (schemaDataP[key].constructor === Object) {
-    let tempObject = `\n  ${key}: joi.object().keys({`;
+    let tempObject = ``;
     Object.keys(schemaDataP[key]).forEach((keyIn) => {
       tempObject += makeKeyType(schemaDataP[key], keyIn);
     });
-    tempObject += '\n  }),';
+    tempObject += '';
     return tempObject;
   }
 
   // passes [{}]
   if (schemaDataP[key].constructor === Array && schemaDataP[key][0].constructor === Object) {
-    let tempObject = `\n  ${key}: joi.array().items(joi.object().keys({`;
+    let tempObject = ``;
     Object.keys(schemaDataP[key][0]).forEach((keyIn) => {
       tempObject += makeKeyType(schemaDataP[key][0], keyIn);
     });
-    tempObject += '\n})).optional().default([]),';
+    tempObject += '';
     return tempObject;
   }
 }
 
-function makeValidation(schemaJson) {
-  // let renderedSchema = '{';
+function generateSwaggerSchema(schemaJson) {
   let renderedSchema = '';
   let schemaKeys = Object.keys(schemaJson);
 
   schemaKeys.forEach((key) => {
     renderedSchema += makeKeyType(schemaJson, key);
   });
+
   return renderedSchema;
 };
 
-
-module.exports = makeValidation;
+module.exports = generateSwaggerSchema;
