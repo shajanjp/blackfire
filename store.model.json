@@ -1,0 +1,15 @@
+{
+  "title" : "String",
+  "about" : "String",
+  "owner" : "ObjectId",
+  "open" : [{
+    "day" : "String",
+    "time" : "String"
+  }],
+  "address" : "ObjectId",
+  "logo" : "String",
+  "photos" : ["String"],
+  "phone" : "String",
+  "website" : "String",
+  "email" : "String"
+}
