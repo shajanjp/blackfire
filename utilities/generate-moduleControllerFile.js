@@ -4,10 +4,10 @@ module.exports = function(filePath, moduleDetails) {
   const controllerData = `const ${moduleDetails.singularCamel} = require('mongoose').model('${moduleDetails.singular}');
 const ${moduleDetails.singular}Validation = require('../libraries/${moduleDetails.plural}.server.validation.js');
 
-exports.${moduleDetails.singular}byId = (req, res, next, ${moduleDetails.singular}_id) => {
-  ${moduleDetails.singularCamel}.findOne({ _id: ${moduleDetails.singular}_id })
+exports.${moduleDetails.singular}byId = (req, res, next, ${moduleDetails.singular}Id) => {
+  ${moduleDetails.singularCamel}.findOne({ _id: ${moduleDetails.singular}Id })
   .then(${moduleDetails.singular}Found => {
-    res.locals.${moduleDetails.singular}_id = ${moduleDetails.singular}Found._id;
+    res.locals.${moduleDetails.singular}Id = ${moduleDetails.singular}Found._id;
     next();
   })
   .catch(err => {
@@ -46,7 +46,7 @@ exports.get${moduleDetails.pluralCamel} = (req, res) => {
 }
 
 exports.update${moduleDetails.singularCamel} = (req, res) => {
-  ${moduleDetails.singularCamel}.update({ _id: res.locals.${moduleDetails.singular}_id }, res.locals.${moduleDetails.singular}, { safe: true })
+  ${moduleDetails.singularCamel}.update({ _id: res.locals.${moduleDetails.singular}Id }, res.locals.${moduleDetails.singular}, { safe: true })
   .then(${moduleDetails.singular}Updated => {
     return res.status(200).json({});
   })
@@ -59,7 +59,7 @@ exports.update${moduleDetails.singularCamel} = (req, res) => {
 }
 
 exports.get${moduleDetails.singularCamel} = (req, res) => {
-  ${moduleDetails.singularCamel}.findOne({ _id: res.locals.${moduleDetails.singular}_id }).exec()
+  ${moduleDetails.singularCamel}.findOne({ _id: res.locals.${moduleDetails.singular}Id }).exec()
   .then(${moduleDetails.singular}Found => {
     return res.status(200).json(${moduleDetails.singular}Found);
   })
@@ -72,7 +72,7 @@ exports.get${moduleDetails.singularCamel} = (req, res) => {
 }
 
 exports.remove${moduleDetails.singularCamel} = (req, res) => {
-  ${moduleDetails.singularCamel}.remove({ _id: res.locals.${moduleDetails.singular}_id })
+  ${moduleDetails.singularCamel}.remove({ _id: res.locals.${moduleDetails.singular}Id })
   .then(${moduleDetails.singular}Removed => {
     return res.status(200).json({});
   })

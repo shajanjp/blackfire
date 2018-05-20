@@ -40,7 +40,7 @@ ${generateSwaggerSchema(moduleDetails.modelData)}
       200:
         description: Success
 
-/api/${moduleDetails.plural}/{${moduleDetails.singular}_id}:
+/api/${moduleDetails.plural}/{${moduleDetails.singular}Id}:
   get:
     summary: Get ${moduleDetails.singular} details
     description: Get details of specified ${moduleDetails.singular}
@@ -53,7 +53,7 @@ ${generateSwaggerSchema(moduleDetails.modelData)}
         description: Success
     parameters:
     - in: path
-      name: ${moduleDetails.singular}_id
+      name: ${moduleDetails.singular}Id
       schema:
         type: string
       required: true
@@ -70,7 +70,7 @@ ${generateSwaggerSchema(moduleDetails.modelData)}
         description: Success
     parameters:
     - in: path
-      name: ${moduleDetails.singular}_id
+      name: ${moduleDetails.singular}Id
       schema:
         type: string
       required: true
@@ -94,7 +94,7 @@ ${generateSwaggerSchema(moduleDetails.modelData)}
         description: Success
     parameters:
     - in: path
-      name: ${moduleDetails.singular}_id
+      name: ${moduleDetails.singular}Id
       schema:
         type: string
       required: true
