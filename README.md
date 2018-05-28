@@ -1,3 +1,4 @@
+![BlackFire](https://img.shields.io/npm/v/blackfire.svg)
 # Blackfire
 
 ## Install BlackFire globally
