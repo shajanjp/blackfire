@@ -10,12 +10,12 @@ router.route('/')
 .post(${moduleDetails.singular}Validator.validateInsert${moduleDetails.singularCamel}, ${moduleDetails.singular}Controller.insert${moduleDetails.singularCamel})
 .get(${moduleDetails.singular}Controller.get${moduleDetails.pluralCamel});
 
-router.route('/:${moduleDetails.singular}_id')
+router.route('/:${moduleDetails.singular}Id')
 .put(${moduleDetails.singular}Validator.validateInsert${moduleDetails.singularCamel}, ${moduleDetails.singular}Controller.update${moduleDetails.singularCamel})
 .get(${moduleDetails.singular}Controller.get${moduleDetails.singularCamel})
 .delete(${moduleDetails.singular}Controller.remove${moduleDetails.singularCamel})
 
-router.param('${moduleDetails.singular}_id', ${moduleDetails.singular}Controller.${moduleDetails.singular}byId)
+router.param('${moduleDetails.singular}Id', ${moduleDetails.singular}Controller.${moduleDetails.singular}byId)
 
 module.exports = router;`;
   helperUtilities.makeFile(filePath, routerData);
