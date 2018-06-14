@@ -1,7 +1,7 @@
 {
   "name": "blackfire",
-  "version": "0.0.30",
-  "description": "Easy to use, maintainable MEAN boilerplate.",
+  "version": "0.0.4",
+  "description": "Easy to use, modular, REST API boilerplate and generator CLI using Node, Express and MongoDB.",
   "main": "server.js",
   "dependencies": {
     "follow-redirects": "^1.4.1"

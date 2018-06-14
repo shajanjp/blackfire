@@ -3,7 +3,7 @@
 
 [![Express Logo](http://shajanjacob.com/blackfire/img/blackfire-example.png)](http://shajanjacob.com/blackfire)
 
-Easy to use, modular, REST API generator using [Node](http://nodejs.org), [Express](https://expressjs.com/) and [MongoDB](https://www.mongodb.com/).
+Easy to use, modular, REST API boilerplate and generator CLI using [Node](http://nodejs.org), [Express](https://expressjs.com/) and [MongoDB](https://www.mongodb.com/).
 
 ## Everything you need for your API in seconds!
 Yeah, blackfire usually takes only less than a second. Generating REST API for your dream application has never been this easy. Blackfire generates everything from basic routes, controller, schema and even swagger docs!
