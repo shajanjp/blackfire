@@ -27,7 +27,8 @@ function makeModuleFilesAndFolders(moduleDetails) {
   factory.generateValidaionFile(`${moduleRoot}/libraries/${moduleDetails.plural}.server.validation.js`, moduleDetails);
   factory.generateSwaggerDocs(`${moduleRoot}/docs/${moduleDetails.plural}.docs.yaml`, moduleDetails);
   helperUtilities.makeFile(`${moduleRoot}/libraries/${moduleDetails.plural}.server.library.js`, '');
-  factory.generateRouterFile(`${moduleRoot}/routes/${moduleDetails.plural}.server.route.js`, moduleDetails);
+  factory.generateRouterFile(`${moduleRoot}/routes/${moduleDetails.plural}.server.api.route.js`, moduleDetails);
+  factory.generateRouterFile(`${moduleRoot}/routes/${moduleDetails.plural}.server.ui.route.js`, moduleDetails);
   framework.addModuleToList(moduleDetails);
 }
 

@@ -5,7 +5,8 @@ module.exports = function(filePath, moduleDetails) {
   "name" : "${moduleDetails.plural}",
   "title" : "${moduleDetails.pluralCamel}",
   "description" : "${moduleDetails.pluralCamel} will be ${moduleDetails.plural} !",
-  "routes": ["${moduleDetails.plural}.server.route.js"],
+  "apiRoutes": ["${moduleDetails.plural}.server.api.route.js"],
+  "uiRoutes": ["${moduleDetails.plural}.server.ui.route.js"],
   "models": ["${moduleDetails.plural}.server.model.js"],
   "root": "/${moduleDetails.plural}"
 }`;
