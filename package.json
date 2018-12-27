@@ -1,6 +1,6 @@
 {
   "name": "blackfire",
-  "version": "0.0.5",
+  "version": "0.0.510",
   "description": "Easy to use, modular, REST API boilerplate and generator CLI using Node, Express and MongoDB.",
   "main": "server.js",
   "dependencies": {
