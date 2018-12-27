@@ -79,13 +79,12 @@ Usage: blackfire <command>
 where <command> is one of:
     new, module, remove, status, report
 
-blackfire help <term>  search for help on <term>
-blackfire <cmd> -h     quick help on <cmd>
-blackfire new <app name>     creates an application foo
+blackfire help <term>  :  search for help on <term>
+blackfire <cmd> -h  :  quick help on <cmd>
+blackfire new <app name>  :  creates an application foo
   eg : blackfire new myApp
-blackfire module <singular> <plural>     adds module cats
+blackfire module <singular> <plural>  :  adds module cats
   eg : blackfire module cat cats
-  
 Config info can be viewed via: blackfire help config
 
 blackfire@0.0.24
