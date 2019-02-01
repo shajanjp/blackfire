@@ -32,8 +32,24 @@ function makeModuleFilesAndFolders(moduleDetails) {
   framework.addModuleToList(moduleDetails);
 }
 
+// > blackfire init
+if (process.argv.length == 3 && process.argv[2] == 'init') {
+  appFolder = '.';
+  framework.makeServerJsFile(appFolder);
+  framework.makePackageJsonFile(appFolder);
+  framework.makeGitIgnoreFile(appFolder);
+  framework.makeExpressJsFile(appFolder);
+  framework.makeMongooseJsFile(appFolder);
+  framework.makeSwaggerJsFile(appFolder);
+  framework.makeModulesJsonFile(appFolder);
+  framework.makeModulesJsFile(appFolder);
+  framework.makeEnvFiles(appFolder);
+  framework.makeEnvIndexJsFile(appFolder);
+  helperUtilities.makeFolder(`${appFolder}/app`);
+} 
+
 // > blackfire new
-if (process.argv.length == 4 && process.argv[2] == 'new') {
+else if (process.argv.length == 4 && process.argv[2] == 'new') {
   appFolder = process.argv[3];
   helperUtilities.makeFolder(appFolder);
   framework.makeServerJsFile(appFolder);
