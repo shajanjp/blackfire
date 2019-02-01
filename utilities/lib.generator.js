@@ -16,18 +16,28 @@ function makeFile(filePath, content) {
   });
 }
 
+/*
+Downloads file from github server and places it in local dir
+*/
 function githubDownload(localFile, remoteFile) {
-  https.get(`${githubRoot}${remoteFile}`, (response) => {
-    response.on('data', (data) => {
-      fs.writeFile(localFile, data, 'utf8', (err) => {
-        if (!err) {
- console.log(`create ${localFile}`);
-} else {
- console.error(`couldn't download ${localFile}`);
-}
-      });
-    });
-  })
+  https
+    .get(`${githubRoot}${remoteFile}`, response => {
+      let resBody = [];
+      response
+        .on('data', chunk => {
+          resBody.push(chunk);
+        })
+        .on('end', () => {
+          let allBody = Buffer.concat(resBody).toString();
+          fs.writeFile(localFile, allBody, err => {
+            if (err) {
+              console.error(`couldn't download ${localFile}`);
+            } else {
+              console.log(`create ${localFile}`);
+            }
+          });
+        });
+    })
     .on('error', () => {
       console.log(`couldn't download ${localFile}`);
     });
