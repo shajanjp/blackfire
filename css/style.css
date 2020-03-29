@@ -73,3 +73,14 @@ section#get-started{
 span.term{
 	color: #039be5;
 }
+
+/* Footer Styles*/
+footer{
+	padding: 20px 0px 10px 0px; 
+}
+footer span.icon-hearts{
+	color: red;
+}
+footer p{
+	text-align: center;
+}
